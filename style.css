@@ -1,0 +1,74 @@
+
+.body{
+  background-color: rgb(198, 198, 120);
+}
+
+
+.search-bar{
+  padding-bottom: 30px;
+}
+
+/* xcd */
+
+.search-form {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.search-form .input-group {
+  width: 100%;
+}
+.search-form .form-row {
+  align-items: center;
+}
+.search-form .filter-text {
+  font-size: 14px;
+  margin: 0;
+}
+
+.search-bar .filter-text{
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+}
+/* hbm */
+
+
+.search-bar .btn-primary{
+  height: 38px;
+}
+
+.search-bar .btn-secondary{
+  background-color: green;
+}
+
+.card-body{
+  background-color: whitesmoke;
+}
+.card-title{
+  color:black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:25px;
+  font-weight:bolder;
+}
+.card-address{
+  color:rgb(35, 33, 33);
+}
+.card-beds{
+  color:rgb(35, 33, 33);
+}
+.card-price{
+  color:rgb(171, 28, 28);
+  font-size: 20px;
+  font-weight: bold;
+}
+.btn{
+  width: 80px;
+  height: 35px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}

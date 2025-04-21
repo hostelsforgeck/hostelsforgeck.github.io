@@ -44,15 +44,22 @@
 
     let deferredPrompt;
 
+    // Check if the 'beforeinstallprompt' event is fired
     window.addEventListener('beforeinstallprompt', (e) => {
-      log('👍 beforeinstallprompt event fired');
+      log('beforeinstallprompt event fired!');
       e.preventDefault();
       deferredPrompt = e;
+
+      // Let's also log the details of the event object
+      log('Deferred Prompt Object:', JSON.stringify(e));
+
+      // Show the button only if the event is fired
       document.getElementById('addShortcutBtn').style.display = 'inline-block';
     });
 
     document.getElementById('addShortcutBtn').addEventListener('click', async () => {
       if (deferredPrompt) {
+        log('Prompting user to add shortcut...');
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
         log(`User response: ${outcome}`);

@@ -2,53 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Shortcut Demo</title>
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="./manifest.json" />
+  <title>My Shortcut Page</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 2rem; }
-    #addShortcutBtn { display: none; padding: 1em 2em; font-size: 1rem; }
+    #addShortcutBtn {
+      display: none;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    #log {
+      margin-top: 20px;
+      font-family: monospace;
+      background: #f9f9f9;
+      padding: 10px;
+      border: 1px solid #ccc;
+      white-space: pre-wrap;
+    }
   </style>
 </head>
 <body>
-
-  <h1>Welcome to My Site</h1>
-  <p>Click below to add a shortcut to your home screen.</p>
+  <h1>Hello, Shortcut World!</h1>
   <button id="addShortcutBtn">Add Shortcut</button>
+  <pre id="log"></pre>
 
   <script>
+    // Display console logs in the UI
+    const logElem = document.getElementById('log');
+    const log = (msg) => {
+      console.log(msg);
+      logElem.textContent += msg + '\n';
+    };
+    const error = (msg) => {
+      console.error(msg);
+      logElem.textContent += '[ERROR] ' + msg + '\n';
+    };
+
     let deferredPrompt;
 
-    // Listen for beforeinstallprompt
     window.addEventListener('beforeinstallprompt', (e) => {
+      log('👍 beforeinstallprompt event fired');
       e.preventDefault();
       deferredPrompt = e;
       document.getElementById('addShortcutBtn').style.display = 'inline-block';
     });
 
-    // Handle the click
-    document.getElementById('addShortcutBtn').addEventListener('click', () => {
+    document.getElementById('addShortcutBtn').addEventListener('click', async () => {
       if (deferredPrompt) {
         deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choice) => {
-          if (choice.outcome === 'accepted') {
-            console.log('User accepted the shortcut prompt');
-          } else {
-            console.log('User dismissed the shortcut prompt');
-          }
-          deferredPrompt = null;
-        });
+        const { outcome } = await deferredPrompt.userChoice;
+        log(`User response: ${outcome}`);
+        deferredPrompt = null;
+        document.getElementById('addShortcutBtn').style.display = 'none';
       }
     });
 
-    // Register service worker
+    // Register the service worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').then(() => {
-        console.log('Service Worker registered');
-      });
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => log('✅ Service Worker registered'))
+        .catch(err => error('SW registration failed: ' + err));
+    } else {
+      error('Service Workers not supported in this browser.');
     }
   </script>
-
 </body>
 </html>

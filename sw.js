@@ -1,8 +1,8 @@
 self.addEventListener('install', (event) => {
-    console.log('Service Worker installed');
+    console.log('Service worker installed');
   });
   
-  self.addEventListener('fetch', (event) => {
-    // Do nothing, just pass through
+  self.addEventListener('fetch', function(event) {
+    // basic pass-through fetch for now
   });
   

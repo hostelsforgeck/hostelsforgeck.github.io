@@ -31,7 +31,6 @@
   <pre id="log"></pre>
 
   <script>
-    // Display console logs in the UI
     const logElem = document.getElementById('log');
     const log = (msg) => {
       console.log(msg);
@@ -44,16 +43,23 @@
 
     let deferredPrompt;
 
-    // Check if the 'beforeinstallprompt' event is fired
+    // Manually trigger the 'beforeinstallprompt' for testing
+    window.addEventListener('load', () => {
+      log('Window loaded. Attempting to fire beforeinstallprompt manually for testing.');
+
+      // Simulate the 'beforeinstallprompt' event for testing purposes
+      setTimeout(() => {
+        const event = new Event('beforeinstallprompt');
+        window.dispatchEvent(event);
+      }, 1000);
+    });
+
+    // Listen for the 'beforeinstallprompt' event
     window.addEventListener('beforeinstallprompt', (e) => {
       log('beforeinstallprompt event fired!');
       e.preventDefault();
       deferredPrompt = e;
-
-      // Let's also log the details of the event object
-      log('Deferred Prompt Object:', JSON.stringify(e));
-
-      // Show the button only if the event is fired
+      log('Deferred prompt:', JSON.stringify(deferredPrompt));
       document.getElementById('addShortcutBtn').style.display = 'inline-block';
     });
 

@@ -43,34 +43,28 @@
 
     let deferredPrompt;
 
-    // Manually trigger the 'beforeinstallprompt' for testing
-    window.addEventListener('load', () => {
-      log('Window loaded. Attempting to fire beforeinstallprompt manually for testing.');
-
-      // Simulate the 'beforeinstallprompt' event for testing purposes
-      setTimeout(() => {
-        const event = new Event('beforeinstallprompt');
-        window.dispatchEvent(event);
-      }, 1000);
-    });
-
     // Listen for the 'beforeinstallprompt' event
     window.addEventListener('beforeinstallprompt', (e) => {
       log('beforeinstallprompt event fired!');
       e.preventDefault();
       deferredPrompt = e;
       log('Deferred prompt:', JSON.stringify(deferredPrompt));
+
+      // Display the "Add Shortcut" button
       document.getElementById('addShortcutBtn').style.display = 'inline-block';
     });
 
+    // Button click event to trigger the prompt
     document.getElementById('addShortcutBtn').addEventListener('click', async () => {
       if (deferredPrompt) {
         log('Prompting user to add shortcut...');
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
+        deferredPrompt.prompt();  // Show the install prompt
+        const { outcome } = await deferredPrompt.userChoice;  // Wait for the user choice
         log(`User response: ${outcome}`);
         deferredPrompt = null;
         document.getElementById('addShortcutBtn').style.display = 'none';
+      } else {
+        log('No deferred prompt available.');
       }
     });
 
@@ -82,6 +76,15 @@
     } else {
       error('Service Workers not supported in this browser.');
     }
+
+    // Simulate the 'beforeinstallprompt' event for testing purposes
+    window.addEventListener('load', () => {
+      log('Window loaded. Attempting to fire beforeinstallprompt manually for testing.');
+      setTimeout(() => {
+        const event = new Event('beforeinstallprompt');
+        window.dispatchEvent(event);
+      }, 1000);
+    });
   </script>
 </body>
 </html>

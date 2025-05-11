@@ -1,90 +1,1396 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="manifest" href="./manifest.json" />
-  <title>My Shortcut Page</title>
-  <style>
-    #addShortcutBtn {
-      display: none;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-    }
-    #log {
-      margin-top: 20px;
-      font-family: monospace;
-      background: #f9f9f9;
-      padding: 10px;
-      border: 1px solid #ccc;
-      white-space: pre-wrap;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saleem - Product Designer</title>
+    <meta name="description" content="Lead product designer based in Cairo" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+
+        @layer base {
+            :root {
+                --background: 0 0% 5%;
+                --foreground: 0 0% 77%;
+                --card: 0 0% 10%;
+                --card-foreground: 0 0% 100%;
+                --border-radius: 16px;
+                --row-height: 220px;
+                /* Unified row height for consistency */
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Cal Sans';
+                font-weight: 100;
+
+                background-color: hsl(var(--background));
+                color: hsl(var(--foreground));
+                transition: all 0.3s ease;
+                min-height: 100vh;
+                overflow-x: hidden;
+            }
+        }
+
+        .main-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+            padding: 16px;
+            grid-template-areas:
+                "intro intro intro intro intro proj1 proj1 proj1 proj2 proj2 proj2 social"
+                "photo photo photo about about about about about proj3 proj3 proj3 res"
+                "news news news news news stack stack stack stack toggle toggle  contact";
+
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            background-color: #0D0D0D;
+        }
+
+        .grid-item {
+            background-color: #121212;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            height: var(--row-height);
+            /* Uniform height for all grid items */
+        }
+
+        /* Row-specific heights */
+        .row-1 {
+            height: var(--row-height);
+        }
+
+        .row-2 {
+            height: var(--row-height);
+        }
+
+        .row-3 {
+            height: var(--row-height);
+        }
+
+        .intro-card {
+            grid-area: intro;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .intro-card h1 {
+            font-size: 38px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            line-height: 1.2;
+            color: hsl(var(--foreground));
+        }
+
+        .intro-card p {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #888888;
+        }
+
+        .intro-card a {
+            color: hsl(var(--foreground));
+            text-decoration: none;
+            position: relative;
+        }
+
+        .intro-card .highlight {
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 4px;
+        }
+
+        /* Project Card Styles - Modified for hover effects */
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .project-card a {
+            display: block;
+            height: 100%;
+            width: 100%;
+            text-decoration: none;
+            color: hsl(var(--foreground));
+        }
+
+        .project-card.mobile-project {
+            grid-area: proj1;
+        }
+
+        .project-card.app-design-project {
+            grid-area: proj2;
+        }
+
+        .project-card.wide {
+            grid-area: proj3;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        /* Project card hover effects */
+        .project-card:hover img {
+            transform: scale(0.98);
+            /* Subtle zoom out effect */
+        }
+
+        .project-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        .project-card:hover .project-info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: hsl(var(--foreground));
+        }
+
+        .project-arrow {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: hsl(var(--foreground))
+        }
+
+
+        /* Photo card */
+        .photo-card {
+            grid-area: photo;
+            overflow: hidden;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* About card */
+        .about-card {
+            grid-area: about;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #121212;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .about-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .about-card h3 {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            color: #888888;
+        }
+
+        .about-card h2 {
+            font-size: 24px;
+            font-weight: 500;
+            color: hsl(var(--foreground));
+            line-height: 1.3;
+            max-width: 90%;
+        }
+
+
+
+        /* Ripple effect on hover (optional) */
+        .about-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.05);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .about-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Newsletter card */
+        .newsletter-card {
+            grid-area: news;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .newsletter-form {
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 24px;
+            padding: 16px;
+            font-size: 16px;
+            color: hsl(var(--foreground));
+            outline: none;
+        }
+
+        .newsletter-form button {
+            background-color: #333333;
+            border: none;
+            border-radius: 24px;
+            padding: 16px 24px;
+            font-size: 16px;
+            color: hsl(var(--foreground));
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Stack Card Styles - Fixed */
+        /* Main container styling */
+        .grid-item.stack-card {
+            grid-area: stack;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: var(--row-height);
+            overflow: hidden;
+            background-color: #121212;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stack-card h3 {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            color: #888888;
+        }
+
+        .stack-card h2 {
+            font-size: 24px;
+            font-weight: 500;
+            color: hsl(var(--foreground, 0 0% 77%));
+            margin-bottom: 24px;
+        }
+
+        /* Updated stack container with proper overflow handling */
+        .stack-container {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+        }
+
+        /* Left and right fade effect */
+        .stack-container::before,
+        .stack-container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 80px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .stack-container::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(18, 18, 18, 1), rgba(18, 18, 18, 0));
+        }
+
+        .stack-container::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(18, 18, 18, 1), rgba(18, 18, 18, 0));
+        }
+
+        /* Improved scroll container */
+        .stack-icons-scroll {
+            display: flex;
+            gap: 16px;
+            position: absolute;
+            will-change: transform;
+            /* This helps with performance */
+        }
+
+        /* Individual stack icon styling */
+        .stack-icon {
+            width: 68px;
+            height: 68px;
+            min-width: 65px;
+            /* Ensure fixed width */
+            background-color: #1A1A1A;
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .stack-icon:hover {
+            transform: scale(0.9);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .stack-icon:hover img {
+            transform: scale(1.5);
+        }
+
+        .stack-icon img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+
+        }
+
+        /* Toggle card */
+        .toggle-card {
+            grid-area: toggle;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            width: 64px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .theme-toggle::after {
+            content: '';
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            background-color: white;
+            border-radius: 50%;
+            top: 4px;
+            left: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle.active::after {
+            transform: translateX(28px);
+        }
+
+        /* Social links - 3x2 grid with exact heights */
+        .social-links {
+            grid-area: social;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 6px;
+            padding: 6px;
+            height: var(--row-height);
+        }
+
+        .social-icon {
+            aspect-ratio: 1;
+            background-color: #121212;
+            border-radius: var(--border-radius);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+       
+
+        .social-icon:hover {
+            background-color: rgba(255, 255, 255, 0.005);
+        }
+
+        /* Resources card */
+        .resources-card {
+            grid-area: res;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            /* Add position relative to enable absolute positioning of child elements */
+            overflow: hidden;
+        }
+
+        .resources-card h3 {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            color: #888888;
+        }
+
+        .resources-card h2 {
+            font-size: 24px;
+            font-weight: 500;
+            color: hsl(var(--foreground));
+            max-width: 90%;
+            line-height: 1.3;
+        }
+
+        /* Style for arrow icon - circular and positioned at bottom right */
+        .arrow-icon {
+            position: absolute;
+            bottom: 32px;
+            right: 32px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: hsl(var(--card, 0 0% 77%));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Arrow icon styling to match the image */
+        .arrow-icon svg {
+            transform: rotate(-45deg);
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect for the arrow */
+        .resources-card:hover .arrow-icon {
+            transform: rotateY(15deg) rotateX(5deg);
+        }
+
+
+        .resources-card:hover .arrow-icon svg {
+            transform: rotateY(15deg) rotateX(5deg);
+        }
+
+
+        .about-card:hover .arrow-icon {
+            transform: rotateY(15deg) rotateX(5deg);
+        }
+
+        .about-card:hover .arrow-icon svg {
+            transform: rotateY(15deg) rotateX(5deg);
+        }
+
+        /* Add ripple effect on hover */
+        .resources-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.05);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .resources-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Contact card */
+        /* Contact card */
+        .contact-card {
+            width: 100%;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #121212;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-card h3 {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            color: #888888;
+        }
+
+        .contact-card h2 {
+            font-size: 24px;
+            font-weight: 500;
+            color: hsl(var(--foreground, 0 0% 77%));
+            margin-bottom: 24px;
+        }
+
+        
+
+        /* Improved view button styling */
+        .view-resume-btn {
+            background-color: hsl(var(--card, 0 0% 77%));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px 0;
+            font-size: 16px;
+            color: hsl(var(--foreground));
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            width: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .view-resume-btn svg{
+            color: hsl(var(--foreground));
+        }
+        
+        .view-resume-btn svg path {
+            stroke: hsl(var(--foreground));
+        }
+
+        .view-resume-btn:hover {
+            background-color: rgba(255, 255, 255, 0.005);
+        }
+
+        .view-resume-btn:active {
+            transform: translateY(0);
+        }
+
+        .button-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Ripple effect */
+        .view-resume-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%, -50%);
+            transform-origin: 50% 50%;
+            z-index: 1;
+        }
+
+        .view-resume-btn.clicked::after {
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(25, 25);
+                opacity: 0;
+            }
+        }
+
+        /* Button state transition animations */
+        @keyframes fadeSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeSlideOut {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+
+        .button-content.changing .view-text,
+        .button-content.changing .icon-container {
+            animation: fadeSlideOut 0.2s forwards;
+        }
+
+        .button-content:not(.changing) .view-text,
+        .button-content:not(.changing) .icon-container {
+            animation: fadeSlideIn 0.3s forwards;
+        }
+
+        /* Icon styling */
+        .icon-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 20px;
+            width: 20px;
+            color: hsl(var(--foreground));
+
+        }
+
+        .eye-open,
+        .eye-closed,
+        .check-mark {
+            position: absolute;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .eye-closed {
+            opacity: 1;
+        }
+
+        .eye-open {
+            opacity: 0;
+        }
+
+        .check-mark {
+            opacity: 0;
+        }
+
+        /* Hover state */
+        .view-resume-btn:hover .eye-closed {
+            opacity: 0;
+        }
+
+        .view-resume-btn:hover .eye-open {
+            opacity: 1;
+        }
+
+        /* Clicked state */
+        .view-resume-btn.clicked .eye-closed,
+        .view-resume-btn.clicked .eye-open {
+            opacity: 0;
+        }
+
+        .view-resume-btn.clicked .check-mark {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        h3 {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            color: #888888;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #888888;
+        }
+
+        a {
+            /* color: white; */
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            opacity: 0.8;
+        }
+
+        .highlight {
+            position: relative;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 4px;
+        }
+
+        /* Project images specific to match the image */
+        .project-card:nth-of-type(1) img {
+            object-position: center;
+        }
+
+        .project-card:nth-of-type(2) img {
+            object-position: center;
+        }
+
+        @media (max-width: 1200px) {
+            .grid-container {
+                grid-template-columns: repeat(6, 1fr);
+                grid-template-areas:
+                    "intro intro intro intro intro intro"
+                    "proj1 proj1 proj1 proj2 proj2 proj2"
+                    "photo photo photo about about about"
+                    "proj3 proj3 proj3 proj3 proj3 proj3"
+                    "social social social social social social"
+                    "news news news stack stack stack"
+                    "toggle toggle toggle contact contact contact"
+                    "res res res res res res";
+                height: auto;
+                overflow-y: auto;
+            }
+
+            .social-links {
+                grid-template-columns: repeat(6, 1fr);
+                grid-template-rows: 1fr;
+                height: var(--row-height);
+            }
+
+            /* Maintain consistent heights at tablet size */
+            .grid-item {
+                height: var(--row-height);
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --row-height: 250px;
+                /* Slightly smaller on mobile */
+            }
+
+            .grid-container {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "intro"
+                    "photo"
+                    "about"
+                    "proj1"
+                    "proj2"
+                    "proj3"
+                    "social"
+                    "res"
+                    "news"
+                    "stack"
+                    "contact"
+                ;
+            }
+
+            .toggle-card {
+                display: none;
+            }
+
+            .arrow-icon {
+                bottom: 24px;
+                right: 24px;
+            }
+
+            .about-card h2 {
+                max-width: 85%;
+            }
+
+            .social-links {
+                grid-template-columns: repeat(6, 1fr);
+                grid-template-rows: repeat(1, 1fr);
+                height: 10px;
+                margin-bottom: 65px;
+                /* Add some margin to prevent any lingering issues */
+
+            }
+
+            .contact-card {
+                padding: 24px;
+                height: auto;
+                min-height: var(--row-height);
+            }
+
+            .copy-email {
+                padding: 14px 20px;
+                font-size: 15px;
+            }
+
+            .intro-card,
+            .about-card,
+            .resources-card,
+            .newsletter-card,
+            .stack-card {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            /* Ensure uniform heights on mobile */
+            .grid-item {
+                height: var(--row-height);
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <h1>Hello, Shortcut World!</h1>
-  <button id="addShortcutBtn">Add Shortcut</button>
-  <pre id="log"></pre>
+    <div class="min-h-screen bg-[#0D0D0D]">
+        <div class="main-container">
+            <div class="grid-container">
+                <div class="grid-item intro-card row-1">
+                    <h1>Hi, I'm Saleem </h1>
+                    <p>Lead developer designer, currently working on <a href="#" class="highlight">tabletimes</a> based
+                        in Kerala
+                    </p>
+                </div>
 
-  <script>
-    const logElem = document.getElementById('log');
-    const log = (msg) => {
-      console.log(msg);
-      logElem.textContent += msg + '\n';
-    };
-    const error = (msg) => {
-      console.error(msg);
-      logElem.textContent += '[ERROR] ' + msg + '\n';
-    };
+                <div class="grid-item project-card mobile-project row-1">
+                    <a href="https://example.com/mobile-project" target="_blank">
+                        <img src="/api/placeholder/400/400" alt="Mobile app project" />
+                        <div class="project-info">
+                            <div class="project-title">Mobile App UI</div>
+                            <div class="project-arrow">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 12C10 12 14 12 19 12" stroke="white" stroke-width="2"
+                                        stroke-linecap="round" />
+                                    <path d="M14 6L20 12L14 18" stroke="white" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-    let deferredPrompt;
+                <div class="grid-item project-card app-design-project row-1">
+                    <a href="https://example.com/app-design" target="_blank">
+                        <img src="/api/placeholder/400/400" alt="App design project" />
+                        <div class="project-info">
+                            <div class="project-title">App Design</div>
+                            <div class="project-arrow">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 12C10 12 14 12 19 12" stroke="white" stroke-width="2"
+                                        stroke-linecap="round" />
+                                    <path d="M14 6L20 12L14 18" stroke="white" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-    // Listen for the 'beforeinstallprompt' event
-    window.addEventListener('beforeinstallprompt', (e) => {
-      log('beforeinstallprompt event fired!');
-      e.preventDefault();
-      deferredPrompt = e;
-      log('Deferred prompt:', JSON.stringify(deferredPrompt));
+                <div class="social-links row-1">
+                    <!-- Twitter Icon -->
+                    <a href="#" class="social-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22 4.01C21 4.5 20.02 4.69 19 5C17.879 3.735 16 3.665 14.14 4.38C12.28 5.095 11.029 6.881 11 9C8 9 5 7.5 3 5C3 5 -1 13 8 17C6 18 4 19 1 19C4.5 21 8 22 11.5 22C15.5 22 19.25 20.31 21.5 16.36C22.75 14.05 23.37 11 23 7.5C23 7.5 21 5 22 4.01Z"
+                                stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </a>
+                    <!-- GitHub Icon -->
+                    <a href="#" class="social-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M9 19C4 20.5 4 16.5 2 16M16 22V18.13C16.0375 17.6532 15.9731 17.1738 15.811 16.7238C15.6489 16.2738 15.3929 15.8634 15.06 15.52C18.2 15.17 21.5 13.98 21.5 8.52C21.4997 7.12383 20.9627 5.7812 20 4.77C20.4559 3.54851 20.4236 2.19835 19.91 0.999999C19.91 0.999999 18.73 0.649999 16 2.48C13.708 1.85882 11.292 1.85882 9 2.48C6.27 0.649999 5.09 0.999999 5.09 0.999999C4.57638 2.19835 4.54414 3.54851 5 4.77C4.03013 5.7887 3.49252 7.14346 3.5 8.55C3.5 13.97 6.8 15.16 9.94 15.55C9.611 15.89 9.35726 16.2954 9.19531 16.7399C9.03335 17.1844 8.96681 17.6581 9 18.13V22"
+                                stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </a>
+                    <!-- TinkerHub Icon -->
+                    <a href="https://tinkerhub.org/@saleem_malik" class="social-icon">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="4" y="4" width="9" height="4" rx="1" stroke="white" strokeWidth="2"
+                                strokeLinecap="round" strokeLinejoin="round" />
+                            <rect x="16" y="4" width="4" height="4" rx="1" stroke="white" strokeWidth="2"
+                                strokeLinecap="round" strokeLinejoin="round" />
+                            <rect x="4" y="10" width="16" height="4" rx="1" stroke="white" strokeWidth="2"
+                                strokeLinecap="round" strokeLinejoin="round" />
+                            <rect x="4" y="16" width="5" height="4" rx="1" stroke="white" strokeWidth="2"
+                                strokeLinecap="round" strokeLinejoin="round" />
+                            <rect x="11" y="16" width="4" height="4" rx="1" stroke="white" strokeWidth="2"
+                                strokeLinecap="round" strokeLinejoin="round" />
+                            <rect x="17" y="16" width="3" height="4" rx="1" stroke="white" strokeWidth="2"
+                                strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </a>
+                    <!-- LinkedIn Icon -->
+                    <a href="#" class="social-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z"
+                                stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M6 9H2V21H6V9Z" stroke="white" strokeWidth="2" strokeLinecap="round"
+                                strokeLinejoin="round" />
+                            <path
+                                d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z"
+                                stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </a>
+                    <!-- Stack Overflow Icon -->
+                    <a href="#" class="social-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 20.002V14.67H20V22.002H4V14.67H6V20.002H18Z" stroke="white" strokeWidth="2"
+                                strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M15 14.67H9V17.002H15V14.67Z" stroke="white" strokeWidth="2" strokeLinecap="round"
+                                strokeLinejoin="round" />
+                            <path d="M15.5 11.516L8.95 9.91L8.5 11.83L15.05 13.436L15.5 11.516Z" stroke="white"
+                                strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M16.84 8.245L11.17 4.578L10.17 6.245L15.84 9.912L16.84 8.245Z" stroke="white"
+                                strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </a>
+                    <!-- Mail Icon -->
+                    <a href="#" class="social-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"
+                                stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M22 6L12 13L2 6" stroke="white" strokeWidth="2" strokeLinecap="round"
+                                strokeLinejoin="round" />
+                        </svg>
+                    </a>
+                </div>
 
-      // Display the "Add Shortcut" button
-      document.getElementById('addShortcutBtn').style.display = 'inline-block';
-    });
 
-    // Button click event to trigger the prompt
-    document.getElementById('addShortcutBtn').addEventListener('click', async () => {
-      if (deferredPrompt) {
-        log('Prompting user to add shortcut...');
-        deferredPrompt.prompt();  // Show the install prompt
-        const { outcome } = await deferredPrompt.userChoice;  // Wait for the user choice
-        log(`User response: ${outcome}`);
-        deferredPrompt = null;
-        document.getElementById('addShortcutBtn').style.display = 'none';
-      } else {
-        log('No deferred prompt available.');
-      }
-    });
+                <div class="grid-item photo-card row-2">
+                    <img src="./me.jpg" alt="Profile photo" />
+                </div>
 
-    // Register the service worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js')
-        .then(() => log('✅ Service Worker registered'))
-        .catch(err => error('SW registration failed: ' + err));
-    } else {
-      error('Service Workers not supported in this browser.');
-    }
+                <div class="grid-item about-card row-2">
+                    <div class="about-content">
+                        <div>
+                            <h3>ABOUT</h3>
+                            <h2>Passionate about design and enjoy solving problems.</h2>
+                        </div>
+                        <div class="arrow-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" strokeWidth="2"
+                                    strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
 
-    // Simulate the 'beforeinstallprompt' event for testing purposes
-    window.addEventListener('load', () => {
-      log('Window loaded. Attempting to fire beforeinstallprompt manually for testing.');
-      setTimeout(() => {
-        const event = new Event('beforeinstallprompt');
-        window.dispatchEvent(event);
-      }, 1000);
-    });
-  </script>
+                <div class="grid-item project-card wide row-2">
+                    <a href="https://example.com/web-project" target="_blank">
+                        <img src="./p1.png" alt="Laptop project" />
+                        <div class="project-info">
+                            <div class="project-title">Quickprep.ai</div>
+                            <div class="project-arrow">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 12C10 12 14 12 19 12" stroke="white" stroke-width="2"
+                                        stroke-linecap="round" />
+                                    <path d="M14 6L20 12L14 18" stroke="white" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Resources card HTML -->
+                <a href="www.google.com">
+                <div class="grid-item resources-card row-2">
+                    
+                        <div>
+                            <h3>PROJECTS</h3>
+                            <h2>Explore selected works</h2>
+                        </div>
+                        <div class="arrow-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" strokeWidth="2"
+                                    strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </div>
+                    
+                </div></a>
+
+                <div class="grid-item newsletter-card row-3">
+                    <div>
+                        <h2>Get design tips & guides straight to your inbox for free!</h2>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Your email address" required />
+                            <button type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Fixed Stack Card Section -->
+                <!-- Stack Card HTML -->
+                <div class="grid-item stack-card">
+                    <h3>TECH STACK</h3>
+                    <h2>Tools I use daily</h2>
+                    <div class="stack-container" id="stackContainer">
+                        <div class="stack-icons-scroll" id="stackIconsScroll">
+                            <!-- Stack icons will be dynamically added by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-item toggle-card row-3">
+                    <div class="theme-toggle" id="theme-toggle">
+                    </div>
+                </div>
+
+                <!-- Replace your existing contact-card div with this updated version -->
+                <div class="grid-item contact-card row-3">
+                    <div>
+                        <h3>RESUME</h3>
+                        <h2>Interested in working together?</h2>
+                        <button class="view-resume-btn" id="view-resume-btn">
+                            <div class="button-content" id="button-content">
+                                <span class="view-text" id="resume-button-text">View Resume</span>
+                                <div class="icon-container">
+                                    <!-- Eye Closed (Default state) -->
+                                    <svg class="eye-closed" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M6.87 6.87a8 8 0 0 0-4.57 3.17c-.42.66-.42 1.49 0 2.15 1.71 2.67 4.89 4.81 9.05 4.81"
+                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path
+                                            d="M15.87 17.7c3.07-.46 5.65-2.43 7.01-4.51.42-.66.42-1.49 0-2.15-1.71-2.67-4.89-4.81-9.05-4.81"
+                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.01 7v5" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M4 4L20 20" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+
+                                    <!-- Eye Open (Hover state) -->
+                                    <svg class="eye-open" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 5C8.24 5 5.01 7.21 3.3 10.7c-.42.84-.42 1.82 0 2.66C5.01 16.79 8.24 19 12 19s6.99-2.21 8.7-5.66c.42-.84.42-1.82 0-2.66C18.99 7.21 15.76 5 12 5z"
+                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                        <!-- Lashes for more detail -->
+                                        <path d="M5 7L7 9" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M9 5L10 8" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M19 7L17 9" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M15 5L14 8" stroke-width="1.5" stroke-linecap="round" />
+                                    </svg>
+
+                                    <!-- Check Mark (Clicked state) -->
+                                    <svg class="check-mark" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 6L9 17L4 12" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const viewResumeBtn = document.getElementById('view-resume-btn');
+            const resumeButtonText = document.getElementById('resume-button-text');
+            const buttonContent = document.getElementById('button-content');
+            const resetTimeout = 5000; // 5 seconds
+
+            let isClicked = false;
+            let resetTimer;
+
+            viewResumeBtn.addEventListener('click', function () {
+                if (isClicked) return;
+                isClicked = true;
+
+                // Add ripple effect
+                viewResumeBtn.classList.add('clicked');
+
+                // Animate content change
+                buttonContent.classList.add('changing');
+
+                setTimeout(() => {
+                    // Change text to "Viewed"
+                    resumeButtonText.textContent = 'Viewed Resume';
+                    buttonContent.classList.remove('changing');
+
+                    // Start reset timer
+                    resetTimer = setTimeout(resetButton, resetTimeout);
+
+                    // Optional: open resume in new tab
+                    window.open('https://drive.google.com/your-resume-link', '_blank');
+                }, 200);
+            });
+
+            function resetButton() {
+                // Animate content change
+                buttonContent.classList.add('changing');
+
+                setTimeout(() => {
+                    // Reset text and remove clicked class
+                    resumeButtonText.textContent = 'View Resume';
+                    viewResumeBtn.classList.remove('clicked');
+                    buttonContent.classList.remove('changing');
+                    isClicked = false;
+                }, 200);
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Icons data - you can replace these with your actual icons
+            const icons = [
+                { src: 'https://placehold.co/48x48?text=0', alt: '0' },
+                { src: 'https://placehold.co/48x48?text=1', alt: '1' },
+                { src: 'https://placehold.co/48x48?text=2', alt: '2' },
+                { src: 'https://placehold.co/48x48?text=3', alt: '3' },
+                { src: 'https://placehold.co/48x48?text=4', alt: '4' },
+                { src: 'https://placehold.co/48x48?text=5', alt: '5' }
+            ];
+
+            const stackContainer = document.getElementById('stackContainer');
+            const stackIconsScroll = document.getElementById('stackIconsScroll');
+            let scrollPosition = 0;
+            let animationId = null;
+
+            // Speed control - adjust this value to control animation speed
+            // Lower values = slower animation, Higher values = faster animation
+            let scrollSpeed = 0.8; // Default speed
+
+            // Function to change the scroll speed
+            function setScrollSpeed(speed) {
+                scrollSpeed = speed;
+                // You can add logic here to update UI elements if you have a speed control slider
+            }
+
+            // Create icons and add them to the scroll container
+            function createIcons() {
+                icons.forEach(icon => {
+                    const iconElement = document.createElement('div');
+                    iconElement.className = 'stack-icon';
+
+                    const img = document.createElement('img');
+                    img.src = icon.src;
+                    img.alt = icon.alt;
+
+                    iconElement.appendChild(img);
+                    stackIconsScroll.appendChild(iconElement);
+                });
+            }
+
+            // Initialize the icons
+            createIcons();
+
+            // Calculate the width of one complete set of icons
+            const iconElements = stackIconsScroll.querySelectorAll('.stack-icon');
+            const iconWidth = iconElements[0].offsetWidth;
+            const iconMargin = 16; // Gap between icons
+            const totalIconWidth = iconWidth + iconMargin;
+            const singleSetWidth = totalIconWidth * icons.length; // Width of one complete set of icons
+
+            // Clone enough icons to ensure seamless scrolling
+            // We need at least 2 sets of icons for smooth infinite scrolling
+            const cloneIcons = () => {
+                // Clear existing clones first
+                const originalCount = icons.length;
+                while (stackIconsScroll.children.length > originalCount) {
+                    stackIconsScroll.removeChild(stackIconsScroll.lastChild);
+                }
+
+                // Clone all icons to create at least 2 full sets
+                const containerWidth = stackContainer.offsetWidth;
+                const setsNeeded = Math.ceil((containerWidth * 2) / singleSetWidth);
+
+                // Create complete sets of icons (not individual icons)
+                for (let i = 0; i < setsNeeded; i++) {
+                    for (let j = 0; j < originalCount; j++) {
+                        const original = iconElements[j];
+                        const clone = original.cloneNode(true);
+                        stackIconsScroll.appendChild(clone);
+                    }
+                }
+            };
+
+            cloneIcons();
+
+            // Set the initial position of the scroll container
+            stackIconsScroll.style.transform = `translateX(0px)`;
+
+            // Timing variables for smoother animation
+            let lastTime = 0;
+
+            // Smooth scrolling animation with time-based movement
+            function scrollIcons(timestamp) {
+                if (!lastTime) lastTime = timestamp;
+
+                // Calculate time elapsed since last frame
+                const elapsed = timestamp - lastTime;
+                lastTime = timestamp;
+
+                // Apply speed as pixels per millisecond
+                // This makes animation consistent regardless of frame rate
+                scrollPosition -= scrollSpeed * (elapsed / 16); // Normalize to 60fps
+
+                // Reset position when we've scrolled past a complete set of icons
+                if (Math.abs(scrollPosition) >= singleSetWidth) {
+                    // Instead of moving individual icons, adjust the position
+                    scrollPosition += singleSetWidth;
+                }
+
+                // Apply the transform
+                stackIconsScroll.style.transform = `translateX(${scrollPosition}px)`;
+
+                // Continue the animation
+                animationId = requestAnimationFrame(scrollIcons);
+            }
+
+            // Start the animation
+            animationId = requestAnimationFrame(scrollIcons);
+
+            // Pause animation on hover
+            stackContainer.addEventListener('mouseenter', () => {
+                cancelAnimationFrame(animationId);
+                lastTime = 0; // Reset timing for smooth restart
+            });
+
+            // Resume animation on mouse leave
+            stackContainer.addEventListener('mouseleave', () => {
+                lastTime = 0; // Reset timing for smooth restart
+                animationId = requestAnimationFrame(scrollIcons);
+            });
+
+            // Handle window resize to ensure enough icons
+            window.addEventListener('resize', () => {
+                cloneIcons();
+            });
+
+            window.stackScroll = {
+                setSpeed: setScrollSpeed,
+                getSpeed: () => scrollSpeed,
+                pause: () => {
+                    cancelAnimationFrame(animationId);
+                    lastTime = 0;
+                },
+                resume: () => {
+                    if (!animationId) {
+                        lastTime = 0;
+                        animationId = requestAnimationFrame(scrollIcons);
+                    }
+                }
+            };
+        });
+    </script>
+
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggle = document.getElementById('theme-toggle');
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function () {
+                    this.classList.toggle('active');
+                });
+            }
+
+        });
+    </script>
+
+
 </body>
+
 </html>

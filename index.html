@@ -12,231 +12,136 @@
     <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
 
     <style>
-        /* globalized.css */
-        :root {
-            /* Colors - Dark Theme (Default) */
-            --background: 0 0% 5%;
-            --background-rgb: 13, 13, 13;
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
 
-            --foreground: 0 0% 77%;
-            --foreground-rgb: 196, 196, 196;
+        @layer base {
+            :root {
+                --background: 0 0% 5%;
+                --foreground: 0 0% 77%;
+                --card: 0 0% 10%;
+                --card-foreground: 0 0% 100%;
+                --border-radius: 16px;
+                --row-height: 220px;
+                /* Unified row height for consistency */
+            }
 
-            --card: 0 0% 7%;
-            --card-rgb: 18, 18, 18;
-            --card-foreground: 0 0% 100%;
-            --card-foreground-rgb: 255, 255, 255;
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
 
-            --muted: 0 0% 54%;
-            --muted-rgb: 136, 136, 136;
+            body {
+                font-family: 'Cal Sans';
+                font-weight: 100;
 
-
-            --border-arrow: rgba(255, 255, 255, 0.1);
-            --border-card: rgba(255, 255, 255, 0.05);
-
-
-            --arrow-bg: 0 0% 10%;
-            --overlay-gradient: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
-            --icon-bg: #1A1A1A;
-            --icon-border: rgba(255, 255, 255, 0.1);
-            --stack-before-gradient: linear-gradient(to right, hsl(var(--card)), rgba(18, 18, 18, 0));
-            --stack-after-gradient: linear-gradient(to left, hsl(var(--card)), rgba(18, 18, 18, 0));
-            --input-bg: rgba(255, 255, 255, 0.1);
-            --button-bg: #333333;
-
-            /* Sizing */
-            --border-radius: 16px;
-            --row-height: 220px;
-
-            /* Spacing */
-            --container-padding: 16px;
-            --grid-gap: 16px;
-            --card-padding: 32px;
-            --card-padding-mobile: 24px;
-
-            /* Typography */
-            --font-family: 'Cal Sans', sans-serif;
-            --font-size-h1: 38px;
-            --font-size-h2: 24px;
-            --font-size-h3: 12px;
-            --font-size-p: 18px;
-            --font-size-mobile-h1: 24px;
-            --font-size-mobile-h2: 20px;
-            --font-size-mobile-p: 16px;
-
-            /* Animation */
-            --transition-speed: 0.3s;
-            --transition-function: ease;
+                background-color: hsl(var(--background));
+                color: hsl(var(--foreground));
+                transition: all 0.3s ease;
+                min-height: 100vh;
+                overflow-x: hidden;
+            }
         }
 
-        /* Light theme variables */
-        body.light-theme {
-            /* Colors - Light Theme */
-            --background: 0 0% 96%;
-            --background-rgb: 245, 245, 245;
-            --foreground: 0 0% 15%;
-            --foreground-rgb: 38, 38, 38;
-            --card: 0 0% 100%;
-            --card-rgb: 255, 255, 255;
-            --card-foreground: 0 0% 5%;
-            --card-foreground-rgb: 13, 13, 13;
-            --muted: 0 0% 45%;
-            --muted-rgb: 115, 115, 115;
-
-
-            --border-arrow: rgba(93, 91, 91, 0.493);
-            --border-card: rgba(93, 91, 91, 0.493);
-
-            --arrow-bg: 0 0% 92%;
-            --overlay-gradient: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
-            --icon-bg: #f5f5f5;
-            --icon-border: rgba(0, 0, 0, 0.1);
-            --stack-before-gradient: linear-gradient(to right, hsl(var(--card)), rgba(255, 255, 255, 0));
-            --stack-after-gradient: linear-gradient(to left, hsl(var(--card)), rgba(255, 255, 255, 0));
-            --input-bg: rgba(0, 0, 0, 0.05);
-            --button-bg: #e0e0e0;
-        }
-
-        /* Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Base Styles */
-        body {
-            font-family: var(--font-family);
-            font-weight: 100;
-            background-color: hsl(var(--background));
-            color: hsl(var(--foreground));
-            transition: all var(--transition-speed) var(--transition-function);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Typography */
-        h1 {
-            font-size: var(--font-size-h1);
-            font-weight: 500;
-            margin-bottom: 8px;
-            line-height: 1.2;
-            color: hsl(var(--foreground));
-        }
-
-        h2 {
-            font-size: var(--font-size-h2);
-            font-weight: 500;
-            color: hsl(var(--foreground));
-            line-height: 1.3;
-        }
-
-        h3 {
-            font-size: var(--font-size-h3);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 12px;
-            color: hsl(var(--muted));
-        }
-
-        p {
-            font-size: var(--font-size-p);
-            line-height: 1.5;
-            color: hsl(var(--muted));
-        }
-
-        a {
-            color: hsl(var(--foreground));
-            text-decoration: none;
-            transition: all var(--transition-speed) var(--transition-function);
-        }
-
-        a:hover {
-            opacity: 0.8;
-        }
-
-        .highlight {
-            position: relative;
-            text-decoration: underline;
-            text-decoration-thickness: 1px;
-            text-underline-offset: 4px;
-        }
-
-        /* Layout */
         .main-container {
             max-width: 1440px;
             margin: 0 auto;
-            padding: var(--container-padding);
+            padding: 16px;
+            width: 100%;
+            /* Ensure it takes full width within bounds */
         }
 
         .grid-container {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: var(--grid-gap);
-            padding: var(--container-padding);
+            gap: 16px;
+            padding: 16px;
             grid-template-areas:
                 "intro intro intro intro intro proj1 proj1 proj1 proj2 proj2 proj2 social"
                 "photo photo photo about about about about about proj3 proj3 proj3 res"
                 "news news news news news stack stack stack stack toggle toggle contact";
-            border: 2px solid var(--border-card);
+
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: var(--border-radius);
             overflow: hidden;
-            background-color: hsl(var(--background));
-            transition: background-color var(--transition-speed) var(--transition-function);
+            background-color: #0D0D0D;
+            width: 100%;
+            /* Ensure it takes full width */
         }
 
         .grid-item {
-            background-color: hsl(var(--card));
+            background-color: #121212;
             border-radius: var(--border-radius);
             overflow: hidden;
-            transition: all var(--transition-speed) var(--transition-function);
-            border: 1px solid var(--border-card);
-            /* Use the new border-card variable */
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             height: var(--row-height);
+            /* Uniform height for all grid items */
         }
 
         /* Row-specific heights */
-        .row-1,
-        .row-2,
+        .row-1 {
+            height: var(--row-height);
+        }
+
+        .row-2 {
+            height: var(--row-height);
+        }
+
         .row-3 {
             height: var(--row-height);
         }
 
-        /* Card Components */
-        /* Intro Card */
         .intro-card {
             grid-area: intro;
-            padding: var(--card-padding);
+            padding: 32px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
         .intro-card h1 {
+            font-size: 38px;
+            font-weight: 500;
             margin-bottom: 12px;
+            line-height: 1.2;
+            color: hsl(var(--foreground));
         }
 
         .intro-card p {
-            font-size: var(--font-size-p);
+            font-size: 18px;
             line-height: 1.5;
+            color: #888888;
         }
 
         .intro-card a {
+            color: hsl(var(--foreground));
+            text-decoration: none;
             position: relative;
         }
 
-        /* Project Cards */
+        .intro-card .highlight {
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 4px;
+        }
+
+        /* Project Card Styles - Modified for hover effects */
         .project-card {
             position: relative;
             overflow: hidden;
             cursor: pointer;
-            transition: all var(--transition-speed) var(--transition-function);
+            transition: all 0.3s ease;
         }
 
         .project-card a {
             display: block;
             height: 100%;
             width: 100%;
+            text-decoration: none;
+            color: hsl(var(--foreground));
         }
 
         .project-card.mobile-project {
@@ -255,11 +160,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s var(--transition-function);
+            transition: transform 0.5s ease;
         }
 
+        /* Project card hover effects */
         .project-card:hover img {
             transform: scale(0.98);
+            /* Subtle zoom out effect */
         }
 
         .project-info {
@@ -271,7 +178,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--overlay-gradient);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
             transform: translateY(100%);
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -285,7 +192,7 @@
         .project-title {
             font-size: 18px;
             font-weight: 500;
-            color: hsl(var(--card-foreground));
+            color: hsl(var(--foreground));
         }
 
         .project-arrow {
@@ -295,11 +202,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all var(--transition-speed) var(--transition-function);
-            color: hsl(var(--foreground));
+            transition: all 0.3s ease;
+            color: hsl(var(--foreground))
         }
 
-        /* Photo Card */
+
+        /* Photo card */
         .photo-card {
             grid-area: photo;
             overflow: hidden;
@@ -311,15 +219,17 @@
             object-fit: cover;
         }
 
-        /* About Card */
+        /* About card */
         .about-card {
             grid-area: about;
-            padding: var(--card-padding);
+            padding: 32px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            background-color: #121212;
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
 
         .about-content {
@@ -329,7 +239,20 @@
             justify-content: space-between;
         }
 
+        .about-card h3 {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            color: #888888;
+        }
+
         .about-card h2 {
+            font-size: 24px;
+            font-weight: 500;
+            color: hsl(var(--foreground));
+            line-height: 1.3;
             max-width: 90%;
         }
 
@@ -340,9 +263,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: var(--border-card);
+            background-color: rgba(255, 255, 255, 0.05);
             opacity: 0;
-            transition: opacity var(--transition-speed) var(--transition-function);
+            transition: opacity 0.3s ease;
             pointer-events: none;
         }
 
@@ -350,13 +273,27 @@
             opacity: 1;
         }
 
-        /* Newsletter Card */
+        /* Newsletter card */
         .newsletter-card {
             grid-area: news;
-            padding: var(--card-padding);
+            padding: 32px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
+            /* Add this if not already present */
+
+        }
+
+        .newsletter-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .newsletter-content h2,
+        .newsletter-form input,
+        .newsletter-form button {
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
         }
 
         .newsletter-form {
@@ -367,65 +304,66 @@
 
         .newsletter-form input {
             flex: 1;
-            background-color: var(--input-bg);
+            background-color: rgba(255, 255, 255, 0.1);
             border: none;
             border-radius: 24px;
             padding: 16px;
             font-size: 16px;
             color: hsl(var(--foreground));
             outline: none;
-            transition: all var(--transition-speed) var(--transition-function);
         }
 
         .newsletter-form button {
-            background-color: var(--button-bg);
+            background-color: #333333;
             border: none;
             border-radius: 24px;
             padding: 16px 24px;
             font-size: 16px;
             color: hsl(var(--foreground));
             cursor: pointer;
-            transition: all var(--transition-speed) var(--transition-function);
+            transition: all 0.3s ease;
         }
 
-        /* Stack Card */
+        /* Stack Card Styles - Fixed */
+        /* Main container styling */
         .grid-item.stack-card {
             grid-area: stack;
-            padding: var(--card-padding);
+            padding: 32px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             height: var(--row-height);
             overflow: hidden;
-            background-color: hsl(var(--card));
+            background-color: #121212;
             border-radius: var(--border-radius);
-            border: 1px solid var(--border-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .stack-card h3 {
-            font-size: var(--font-size-h3);
+            font-size: 12px;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 12px;
-            color: hsl(var(--muted));
+            color: #888888;
         }
 
         .stack-card h2 {
-            font-size: var(--font-size-h2);
+            font-size: 24px;
             font-weight: 500;
-            color: hsl(var(--foreground));
+            color: hsl(var(--foreground, 0 0% 77%));
             margin-bottom: 24px;
         }
 
+        /* Updated stack container with proper overflow handling */
         .stack-container {
             position: relative;
             width: 100%;
             height: 100px;
             overflow: hidden;
-
         }
 
+        /* Left and right fade effect */
         .stack-container::before,
         .stack-container::after {
             content: "";
@@ -435,47 +373,49 @@
             height: 100%;
             z-index: 2;
             pointer-events: none;
-            transition: background var(--transition-speed) var(--transition-function);
         }
 
         .stack-container::before {
             left: 0;
-            background: var(--stack-before-gradient);
+            background: linear-gradient(to right, rgba(18, 18, 18, 1), rgba(18, 18, 18, 0));
         }
 
         .stack-container::after {
             right: 0;
-            background: var(--stack-after-gradient);
+            background: linear-gradient(to left, rgba(18, 18, 18, 1), rgba(18, 18, 18, 0));
         }
 
+        /* Improved scroll container */
         .stack-icons-scroll {
             display: flex;
             gap: 16px;
             position: absolute;
             will-change: transform;
+            /* This helps with performance */
         }
 
+        /* Individual stack icon styling */
         .stack-icon {
             width: 68px;
             height: 68px;
             min-width: 65px;
-            background-color: var(--icon-bg);
+            /* Ensure fixed width */
+            background-color: #1A1A1A;
             border-radius: 14px;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 12px;
-            box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.2);
-
-            border: 1px solid var(--icon-border);
-            transition: all var(--transition-speed) var(--transition-function);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
             flex-shrink: 0;
         }
 
         .stack-icon:hover {
             transform: scale(0.9);
-            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-            border-color: var(--border-arrow);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .stack-icon:hover img {
@@ -487,10 +427,11 @@
             height: 45px;
             object-fit: contain;
             border-radius: 8px;
-            transition: all var(--transition-speed) var(--transition-function);
+            transition: all 0.3s ease;
+
         }
 
-        /* Toggle Card */
+        /* Toggle card */
         .toggle-card {
             grid-area: toggle;
             display: flex;
@@ -501,25 +442,10 @@
         .theme-toggle {
             width: 64px;
             height: 36px;
-            background-color: var(--input-bg);
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 18px;
             position: relative;
             cursor: pointer;
-            transition: all var(--transition-speed) var(--transition-function);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 6px;
-            border: 2px solid hsl(var(--border-arrow));
-        }
-
-        .theme-toggle .sun-icon,
-        .theme-toggle .moon-icon {
-            width: 18px;
-            height: 18px;
-            z-index: 1;
-            color: hsl(var(--foreground));
-            transition: all var(--transition-speed) var(--transition-function);
         }
 
         .theme-toggle::after {
@@ -527,27 +453,18 @@
             position: absolute;
             width: 28px;
             height: 28px;
-            background-color: hsl(var(--foreground));
+            background-color: white;
             border-radius: 50%;
             top: 4px;
             left: 4px;
-            transition: all var(--transition-speed) var(--transition-function);
+            transition: all 0.3s ease;
         }
 
         .theme-toggle.active::after {
             transform: translateX(28px);
-            background-color: hsl(var(--foreground));
         }
 
-        body.light-theme .theme-toggle .moon-icon {
-            opacity: 0.5;
-        }
-
-        body:not(.light-theme) .theme-toggle .sun-icon {
-            opacity: 0.5;
-        }
-
-        /* Social Links */
+        /* Social links - 3x2 grid with exact heights */
         .social-links {
             grid-area: social;
             display: grid;
@@ -560,42 +477,51 @@
 
         .social-icon {
             aspect-ratio: 1;
-            background-color: hsl(var(--card));
+            background-color: #121212;
             border-radius: var(--border-radius);
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 20px;
-            transition: all var(--transition-speed) var(--transition-function);
-            border: 1px solid var(--border-card);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
+
+
 
         .social-icon:hover {
-            background-color: var(--border-card);
+            background-color: rgba(255, 255, 255, 0.005);
         }
 
-        .social-icon svg path {
-            stroke: hsl(var(--foreground));
-            transition: stroke var(--transition-speed) var(--transition-function);
-        }
-
-
-        /* Resources Card */
+        /* Resources card */
         .resources-card {
-            grid-area: res;
-            padding: var(--card-padding);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-        }
+    grid-area: res;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
 
-        .resources-card h2 {
-            max-width: 90%;
-        }
+        .resources-card h3 {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+    color: #888888;
+}
 
-        /* Arrow Icon Styles */
+.resources-card h2 {
+    font-size: 24px;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+    max-width: 90%;
+    line-height: 1.3;
+}
+
+        /* Style for arrow icon - circular and positioned at bottom right */
         .arrow-icon {
             position: absolute;
             bottom: 32px;
@@ -603,86 +529,91 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: hsl(var(--arrow-bg));
-            border: 1px solid var(--border-arrow);
+            background-color: hsl(var(--card, 0 0% 77%));
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all var(--transition-speed) var(--transition-function);
+            transition: all 0.3s ease;
         }
 
+        /* Arrow icon styling to match the image */
         .arrow-icon svg {
             transform: rotate(-45deg);
-            transition: all var(--transition-speed) var(--transition-function);
+            transition: all 0.3s ease;
         }
 
-        .arrow-icon svg path {
-            stroke: hsl(var(--foreground));
-            transition: stroke var(--transition-speed) var(--transition-function);
+        /* Hover effect for the arrow */
+        .resources-card:hover .arrow-icon {
+            transform: rotateY(15deg) rotateX(5deg);
         }
 
-        .resources-card:hover .arrow-icon,
+
+        .resources-card:hover .arrow-icon svg {
+            transform: rotateY(15deg) rotateX(5deg);
+        }
+
+
         .about-card:hover .arrow-icon {
             transform: rotateY(15deg) rotateX(5deg);
         }
 
-        .resources-card:hover .arrow-icon svg,
         .about-card:hover .arrow-icon svg {
             transform: rotateY(15deg) rotateX(5deg);
         }
 
-        /* Ripple effect */
-        .resources-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--border-card);
-            opacity: 0;
-            transition: opacity var(--transition-speed) var(--transition-function);
-            pointer-events: none;
-        }
+        /* Add ripple effect on hover */
+       .resources-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.05);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
 
         .resources-card:hover::after {
             opacity: 1;
         }
 
-        /* Contact Card */
+        /* Contact card */
         .contact-card {
-            grid-area: contact;
-            /* Ensure this is properly set */
-            padding: var(--card-padding);
+            width: 100%;
+            padding: 32px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background-color: hsl(var(--card));
+            background-color: #121212;
             border-radius: var(--border-radius);
-            border: 1px solid var(--border-card);
-            height: var(--row-height);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .contact-card h3 {
-            font-size: var(--font-size-h3);
+            font-size: 12px;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 12px;
-            color: hsl(var(--muted));
+            color: #888888;
         }
 
         .contact-card h2 {
-            font-size: var(--font-size-h2);
+            font-size: 24px;
             font-weight: 500;
-            color: hsl(var(--foreground));
+            color: hsl(var(--foreground, 0 0% 77%));
             margin-bottom: 24px;
         }
 
-        /* Resume Button */
+
+
+        /* Improved view button styling */
         .view-resume-btn {
-            background-color: hsl(var(--arrow-bg));
-            border: 1px solid var(--border-arrow);
+            background-color: hsl(var(--card, 0 0% 77%));
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 14px 0;
             font-size: 16px;
@@ -700,16 +631,18 @@
 
         .view-resume-btn svg {
             color: hsl(var(--foreground));
-            transition: color var(--transition-speed) var(--transition-function);
         }
 
         .view-resume-btn svg path {
             stroke: hsl(var(--foreground));
-            transition: stroke var(--transition-speed) var(--transition-function);
         }
 
         .view-resume-btn:hover {
-            background-color: var(--border-card);
+            background-color: rgba(255, 255, 255, 0.005);
+        }
+
+        .view-resume-btn:active {
+            transform: translateY(0);
         }
 
         .button-content {
@@ -721,7 +654,7 @@
             z-index: 2;
         }
 
-        /* Button Ripple Effect */
+        /* Ripple effect */
         .view-resume-btn::after {
             content: '';
             position: absolute;
@@ -729,7 +662,7 @@
             left: 50%;
             width: 5px;
             height: 5px;
-            background: var(--border-arrow);
+            background: rgba(255, 255, 255, 0.3);
             opacity: 0;
             border-radius: 100%;
             transform: scale(1, 1) translate(-50%, -50%);
@@ -753,7 +686,7 @@
             }
         }
 
-        /* Button Animation States */
+        /* Button state transition animations */
         @keyframes fadeSlideIn {
             0% {
                 opacity: 0;
@@ -788,7 +721,7 @@
             animation: fadeSlideIn 0.3s forwards;
         }
 
-        /* Icon Container */
+        /* Icon styling */
         .icon-container {
             display: flex;
             align-items: center;
@@ -796,6 +729,7 @@
             height: 20px;
             width: 20px;
             color: hsl(var(--foreground));
+
         }
 
         .eye-open,
@@ -817,7 +751,7 @@
             opacity: 0;
         }
 
-        /* Button States */
+        /* Hover state */
         .view-resume-btn:hover .eye-closed {
             opacity: 0;
         }
@@ -826,6 +760,7 @@
             opacity: 1;
         }
 
+        /* Clicked state */
         .view-resume-btn.clicked .eye-closed,
         .view-resume-btn.clicked .eye-open {
             opacity: 0;
@@ -836,43 +771,116 @@
             transform: scale(1.1);
         }
 
-        /* Responsive Styles */
-        /* Tablet Styles */
-        @media (max-width: 1200px) {
-            .grid-container {
-                grid-template-columns: repeat(6, 1fr);
-                grid-template-areas:
-                    "intro intro intro intro intro intro"
-                    "proj1 proj1 proj1 proj2 proj2 proj2"
-                    "photo photo photo about about about"
-                    "proj3 proj3 proj3 proj3 proj3 proj3"
-                    "social social social social social social"
-                    "news news news stack stack stack"
-                    "toggle toggle toggle contact contact contact"
-                    "res res res res res res";
-                height: auto;
-                overflow-y: auto;
-            }
-
-            .social-links {
-                grid-template-columns: repeat(6, 1fr);
-                grid-template-rows: 1fr;
-            }
-
-            /* Maintain consistent heights at tablet size */
-            .grid-item {
-                height: var(--row-height);
-            }
+        h1 {
+            font-size: 36px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            line-height: 1.2;
         }
 
-        /* Mobile Styles */
+        h2 {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        h3 {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            color: #888888;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #888888;
+        }
+
+        a {
+            /* color: white; */
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            opacity: 0.8;
+        }
+
+        .highlight {
+            position: relative;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 4px;
+        }
+
+        /* Project images specific to match the image */
+        .project-card:nth-of-type(1) img {
+            object-position: center;
+        }
+
+        .project-card:nth-of-type(2) img {
+            object-position: center;
+        }
+
+        @media (max-width: 1200px) {
+   .grid-container {
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-areas:
+            "intro intro intro intro intro intro"
+            "photo photo photo about about about"
+            "proj1 proj1 proj1 proj2 proj2 proj2"
+            "social social social social social social"
+            "news news news stack stack stack"
+            "res res res contact contact contact";
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .wide {
+        display: none;
+    }
+
+    .toggle-card {
+        display: none;
+    }
+
+    .social-links {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        height: 10px;
+        margin-bottom: 15%;
+    }
+
+    .grid-item {
+        height: var(--row-height);
+        width: 100%;
+       
+    }
+
+    .grid-item.contact-card {
+        grid-area: contact;
+    }
+
+    
+   .resources-card {
+        grid-area: res;
+        width: 100%;
+        max-width: 100%;
+        height: var(--row-height);
+        box-sizing: border-box;
+
+        flex: 0 0 auto;
+      
+    }
+}
+
         @media (max-width: 768px) {
             :root {
                 --row-height: 250px;
-                --card-padding: var(--card-padding-mobile);
-                --font-size-h1: var(--font-size-mobile-h1);
-                --font-size-h2: var(--font-size-mobile-h2);
-                --font-size-p: var(--font-size-mobile-p);
+                /* Slightly smaller on mobile */
             }
 
             .grid-container {
@@ -888,13 +896,12 @@
                     "res"
                     "news"
                     "stack"
-                    "toggle"
-                    "contact";
+                    "contact"
+                ;
             }
 
             .toggle-card {
-                display: flex;
-                height: 80px;
+                display: none;
             }
 
             .arrow-icon {
@@ -909,11 +916,14 @@
             .social-links {
                 grid-template-columns: repeat(6, 1fr);
                 grid-template-rows: repeat(1, 1fr);
-                height: 120px;
-                margin-bottom: 65px;
+                height: 10px;
+                margin-bottom: 12%;
+                /* Add some margin to prevent any lingering issues */
+
             }
 
             .contact-card {
+                padding: 24px;
                 height: auto;
                 min-height: var(--row-height);
             }
@@ -922,12 +932,78 @@
                 padding: 14px 20px;
                 font-size: 15px;
             }
+
+            .intro-card,
+            .about-card,
+            .resources-card,
+            .newsletter-card,
+            .stack-card {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            /* Ensure uniform heights on mobile */
+            .grid-item {
+                height: var(--row-height);
+            }
         }
 
-        /* Project-specific image positioning */
-        .project-card:nth-of-type(1) img,
-        .project-card:nth-of-type(2) img {
-            object-position: center;
+        .moon-container {
+            position: absolute;
+            top: 50px;
+            /* Position it a bit higher */
+            right: -10px;
+            /* Slightly off the right edge for a dramatic effect */
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+            z-index: 1;
+            overflow: hidden;
+            pointer-events: none;
+            scale: 1.7;
+            /* Make it a bit larger */
+            transform-origin: right center;
+            /* Scale from the right side */
+
+        }
+
+        .moon-container:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            pointer-events: none;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(1deg);
+            }
+        }
+
+        .moon-container {
+            /* other properties */
+            animation: float 15s ease-in-out infinite;
         }
     </style>
 </head>
@@ -999,17 +1075,17 @@
                     <!-- TinkerHub Icon -->
                     <a href="https://tinkerhub.org/@saleem_malik" class="social-icon" target="_blank">
                         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="4" y="4" width="9" height="4" rx="1" stroke="currentColor" stroke-width="0.9"
+                            <rect x="4" y="4" width="9" height="4" rx="1" stroke="white" stroke-width="0.9"
                                 stroke-linecap="round" stroke-linejoin="round" />
-                            <rect x="16" y="4" width="4" height="4" rx="1" stroke="currentColor" stroke-width="0.9"
+                            <rect x="16" y="4" width="4" height="4" rx="1" stroke="white" stroke-width="0.9"
                                 stroke-linecap="round" stroke-linejoin="round" />
-                            <rect x="4" y="10" width="16" height="4" rx="1" stroke="currentColor" stroke-width="0.9"
+                            <rect x="4" y="10" width="16" height="4" rx="1" stroke="white" stroke-width="0.9"
                                 stroke-linecap="round" stroke-linejoin="round" />
-                            <rect x="4" y="16" width="5" height="4" rx="1" stroke="currentColor" stroke-width="0.9"
+                            <rect x="4" y="16" width="5" height="4" rx="1" stroke="white" stroke-width="0.9"
                                 stroke-linecap="round" stroke-linejoin="round" />
-                            <rect x="11" y="16" width="4" height="4" rx="1" stroke="currentColor" stroke-width="0.9"
+                            <rect x="11" y="16" width="4" height="4" rx="1" stroke="white" stroke-width="0.9"
                                 stroke-linecap="round" stroke-linejoin="round" />
-                            <rect x="17" y="16" width="3" height="4" rx="1" stroke="currentColor" stroke-width="0.9"
+                            <rect x="17" y="16" width="3" height="4" rx="1" stroke="white" stroke-width="0.9"
                                 stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </a>
@@ -1050,6 +1126,7 @@
                         </svg>
                     </a>
                 </div>
+
 
 
                 <div class="grid-item photo-card row-2">
@@ -1114,13 +1191,15 @@
                 </a>
 
                 <div class="grid-item newsletter-card row-3">
-                    <div>
-                        <h3>BLAH</h3>
-                        <h2>Under Construction.</h2>
-                        <p class="philosophy-points">Working on it.</p>
+                    <div class="moon-container" id="moon-canvas"></div>
+                    <div class="newsletter-content">
+                        <h2>Get design tips & guides straight to your inbox for free!</h2>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Your email address" required />
+                            <button type="submit">Subscribe</button>
+                        </form>
                     </div>
                 </div>
-
 
                 <!-- Fixed Stack Card Section -->
                 <!-- Stack Card HTML -->
@@ -1195,277 +1274,14 @@
     </div>
 
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const viewResumeBtn = document.getElementById('view-resume-btn');
-            const resumeButtonText = document.getElementById('resume-button-text');
-            const buttonContent = document.getElementById('button-content');
-            const resetTimeout = 5000; // 5 seconds
+    <script src="./p_assets/resume.js"></script>
+    <script src="./p_assets/stack-scroll.js"></script>
+    <script src="./p_assets/toggle.js"></script>
 
-            let isClicked = false;
-            let resetTimer;
 
-            viewResumeBtn.addEventListener('click', function () {
-                if (isClicked) return;
-                isClicked = true;
-
-                // Add ripple effect
-                viewResumeBtn.classList.add('clicked');
-
-                // Animate content change
-                buttonContent.classList.add('changing');
-
-                setTimeout(() => {
-                    // Change text to "Viewed"
-                    resumeButtonText.textContent = 'Viewed Resume';
-                    buttonContent.classList.remove('changing');
-
-                    // Start reset timer
-                    resetTimer = setTimeout(resetButton, resetTimeout);
-
-                    // Optional: open resume in new tab
-                    window.open('https://drive.google.com/your-resume-link', '_blank');
-                }, 200);
-            });
-
-            function resetButton() {
-                // Animate content change
-                buttonContent.classList.add('changing');
-
-                setTimeout(() => {
-                    // Reset text and remove clicked class
-                    resumeButtonText.textContent = 'View Resume';
-                    viewResumeBtn.classList.remove('clicked');
-                    buttonContent.classList.remove('changing');
-                    isClicked = false;
-                }, 200);
-            }
-        });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Icons data - you can replace these with your actual icons
-            const icons = [
-                { src: 'https://placehold.co/48x48?text=0', alt: '0' },
-                { src: 'https://placehold.co/48x48?text=1', alt: '1' },
-                { src: 'https://placehold.co/48x48?text=2', alt: '2' },
-                { src: 'https://placehold.co/48x48?text=3', alt: '3' },
-                { src: 'https://placehold.co/48x48?text=4', alt: '4' },
-                { src: 'https://placehold.co/48x48?text=5', alt: '5' }
-            ];
-
-            const stackContainer = document.getElementById('stackContainer');
-            const stackIconsScroll = document.getElementById('stackIconsScroll');
-            let scrollPosition = 0;
-            let animationId = null;
-
-            // Speed control - adjust this value to control animation speed
-            // Lower values = slower animation, Higher values = faster animation
-            let scrollSpeed = 0.8; // Default speed
-
-            // Function to change the scroll speed
-            function setScrollSpeed(speed) {
-                scrollSpeed = speed;
-                // You can add logic here to update UI elements if you have a speed control slider
-            }
-
-            // Create icons and add them to the scroll container
-            function createIcons() {
-                icons.forEach(icon => {
-                    const iconElement = document.createElement('div');
-                    iconElement.className = 'stack-icon';
-
-                    const img = document.createElement('img');
-                    img.src = icon.src;
-                    img.alt = icon.alt;
-
-                    iconElement.appendChild(img);
-                    stackIconsScroll.appendChild(iconElement);
-                });
-            }
-
-            // Initialize the icons
-            createIcons();
-
-            // Calculate the width of one complete set of icons
-            const iconElements = stackIconsScroll.querySelectorAll('.stack-icon');
-            const iconWidth = iconElements[0].offsetWidth;
-            const iconMargin = 16; // Gap between icons
-            const totalIconWidth = iconWidth + iconMargin;
-            const singleSetWidth = totalIconWidth * icons.length; // Width of one complete set of icons
-
-            // Clone enough icons to ensure seamless scrolling
-            // We need at least 2 sets of icons for smooth infinite scrolling
-            const cloneIcons = () => {
-                // Clear existing clones first
-                const originalCount = icons.length;
-                while (stackIconsScroll.children.length > originalCount) {
-                    stackIconsScroll.removeChild(stackIconsScroll.lastChild);
-                }
-
-                // Clone all icons to create at least 2 full sets
-                const containerWidth = stackContainer.offsetWidth;
-                const setsNeeded = Math.ceil((containerWidth * 2) / singleSetWidth);
-
-                // Create complete sets of icons (not individual icons)
-                for (let i = 0; i < setsNeeded; i++) {
-                    for (let j = 0; j < originalCount; j++) {
-                        const original = iconElements[j];
-                        const clone = original.cloneNode(true);
-                        stackIconsScroll.appendChild(clone);
-                    }
-                }
-            };
-
-            cloneIcons();
-
-            // Set the initial position of the scroll container
-            stackIconsScroll.style.transform = `translateX(0px)`;
-
-            // Timing variables for smoother animation
-            let lastTime = 0;
-
-            // Smooth scrolling animation with time-based movement
-            function scrollIcons(timestamp) {
-                if (!lastTime) lastTime = timestamp;
-
-                // Calculate time elapsed since last frame
-                const elapsed = timestamp - lastTime;
-                lastTime = timestamp;
-
-                // Apply speed as pixels per millisecond
-                // This makes animation consistent regardless of frame rate
-                scrollPosition -= scrollSpeed * (elapsed / 16); // Normalize to 60fps
-
-                // Reset position when we've scrolled past a complete set of icons
-                if (Math.abs(scrollPosition) >= singleSetWidth) {
-                    // Instead of moving individual icons, adjust the position
-                    scrollPosition += singleSetWidth;
-                }
-
-                // Apply the transform
-                stackIconsScroll.style.transform = `translateX(${scrollPosition}px)`;
-
-                // Continue the animation
-                animationId = requestAnimationFrame(scrollIcons);
-            }
-
-            // Start the animation
-            animationId = requestAnimationFrame(scrollIcons);
-
-            // Pause animation on hover
-            stackContainer.addEventListener('mouseenter', () => {
-                cancelAnimationFrame(animationId);
-                lastTime = 0; // Reset timing for smooth restart
-            });
-
-            // Resume animation on mouse leave
-            stackContainer.addEventListener('mouseleave', () => {
-                lastTime = 0; // Reset timing for smooth restart
-                animationId = requestAnimationFrame(scrollIcons);
-            });
-
-            // Handle window resize to ensure enough icons
-            window.addEventListener('resize', () => {
-                cloneIcons();
-            });
-
-            window.stackScroll = {
-                setSpeed: setScrollSpeed,
-                getSpeed: () => scrollSpeed,
-                pause: () => {
-                    cancelAnimationFrame(animationId);
-                    lastTime = 0;
-                },
-                resume: () => {
-                    if (!animationId) {
-                        lastTime = 0;
-                        animationId = requestAnimationFrame(scrollIcons);
-                    }
-                }
-            };
-        });
-    </script>
-
-    <script>
-        // Theme toggle functionality
-        document.addEventListener('DOMContentLoaded', function () {
-            const themeToggle = document.getElementById('theme-toggle');
-            const body = document.body;
-
-            // Check for saved theme preference
-            const savedTheme = localStorage.getItem('theme');
-
-            // Apply saved theme or default to dark
-            if (savedTheme === 'light') {
-                body.classList.add('light-theme');
-                themeToggle.classList.add('active');
-            }
-
-            // Add icons to the toggle button
-            themeToggle.innerHTML = `
-        <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" />
-            <path d="M12 2V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            <path d="M12 20V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            <path d="M4 12L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            <path d="M22 12L20 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            <path d="M19.7782 4.22183L18.364 5.63604" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            <path d="M5.63604 18.364L4.22183 19.7782" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            <path d="M19.7782 19.7782L18.364 18.364" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            <path d="M5.63604 5.63604L4.22183 4.22183" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-        </svg>
-        <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-    `;
-
-            // Toggle theme when the button is clicked
-            if (themeToggle) {
-                themeToggle.addEventListener('click', function () {
-                    // Toggle active class on the button
-                    this.classList.toggle('active');
-
-                    // Toggle light-theme class on body
-                    body.classList.toggle('light-theme');
-
-                    // Save preference to localStorage
-                    const currentTheme = body.classList.contains('light-theme') ? 'light' : 'dark';
-                    localStorage.setItem('theme', currentTheme);
-
-                    // Optional: Add a smooth transition effect
-                    body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-                    setTimeout(() => {
-                        body.style.transition = '';
-                    }, 300);
-                });
-            }
-
-            function setInitialTheme() {
-                const savedTheme = localStorage.getItem('theme');
-
-                if (savedTheme) {
-                    applyTheme(savedTheme);
-                } else {
-                    // Default to dark if no user preference is set
-                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                    applyTheme(prefersDark ? 'dark' : 'dark'); // Always dark unless overridden
-                }
-            }
-
-            // Call once on load
-            setInitialTheme();
-
-            // Optional: React to system preference changes ONLY if no saved user preference
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                if (!localStorage.getItem('theme')) {
-                    applyTheme(e.matches ? 'dark' : 'dark'); // Still default to dark
-                }
-            });
-
-        })
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+    <script src="./p_assets/moon.js"></script>
 
 
 </body>

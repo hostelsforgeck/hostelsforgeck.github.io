@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Saleem - Product Designer</title>
+    <title>SALEEM MALIK PV</title>
     <meta name="description" content="Lead product designer based in Cairo" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,6 @@
                 --card-foreground: 0 0% 100%;
                 --border-radius: 16px;
                 --row-height: 220px;
-                /* Unified row height for consistency */
             }
 
             * {
@@ -50,7 +49,6 @@
             margin: 0 auto;
             padding: 16px;
             width: 100%;
-            /* Ensure it takes full width within bounds */
         }
 
         .grid-container {
@@ -68,7 +66,6 @@
             overflow: hidden;
             background-color: #0D0D0D;
             width: 100%;
-            /* Ensure it takes full width */
         }
 
         .grid-item {
@@ -78,10 +75,8 @@
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.05);
             height: var(--row-height);
-            /* Uniform height for all grid items */
         }
 
-        /* Row-specific heights */
         .row-1 {
             height: var(--row-height);
         }
@@ -128,7 +123,6 @@
             text-underline-offset: 4px;
         }
 
-        /* Project Card Styles - Modified for hover effects */
         .project-card {
             position: relative;
             overflow: hidden;
@@ -163,10 +157,8 @@
             transition: transform 0.5s ease;
         }
 
-        /* Project card hover effects */
         .project-card:hover img {
             transform: scale(0.98);
-            /* Subtle zoom out effect */
         }
 
         .project-info {
@@ -206,8 +198,6 @@
             color: hsl(var(--foreground))
         }
 
-
-        /* Photo card */
         .photo-card {
             grid-area: photo;
             overflow: hidden;
@@ -219,7 +209,6 @@
             object-fit: cover;
         }
 
-        /* About card */
         .about-card {
             grid-area: about;
             padding: 32px;
@@ -273,7 +262,6 @@
             opacity: 1;
         }
 
-        /* Newsletter card */
         .newsletter-card {
             grid-area: news;
             padding: 32px;
@@ -281,7 +269,6 @@
             flex-direction: column;
             justify-content: space-between;
             position: relative;
-            /* Add this if not already present */
 
         }
 
@@ -324,8 +311,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Stack Card Styles - Fixed */
-        /* Main container styling */
         .grid-item.stack-card {
             grid-area: stack;
             padding: 32px;
@@ -355,7 +340,6 @@
             margin-bottom: 24px;
         }
 
-        /* Updated stack container with proper overflow handling */
         .stack-container {
             position: relative;
             width: 100%;
@@ -363,7 +347,6 @@
             overflow: hidden;
         }
 
-        /* Left and right fade effect */
         .stack-container::before,
         .stack-container::after {
             content: "";
@@ -385,21 +368,17 @@
             background: linear-gradient(to left, rgba(18, 18, 18, 1), rgba(18, 18, 18, 0));
         }
 
-        /* Improved scroll container */
         .stack-icons-scroll {
             display: flex;
             gap: 16px;
             position: absolute;
             will-change: transform;
-            /* This helps with performance */
         }
 
-        /* Individual stack icon styling */
         .stack-icon {
             width: 68px;
             height: 68px;
             min-width: 65px;
-            /* Ensure fixed width */
             background-color: #1A1A1A;
             border-radius: 14px;
             display: flex;
@@ -431,7 +410,6 @@
 
         }
 
-        /* Toggle card */
         .toggle-card {
             grid-area: toggle;
             display: flex;
@@ -441,8 +419,9 @@
 
         .theme-toggle {
             width: 64px;
-            height: 36px;
-            background-color: rgba(255, 255, 255, 0.1);
+            height: 36.8px;
+            background-color: hsl(var(--card, 0 0% 77%));
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 18px;
             position: relative;
             cursor: pointer;
@@ -464,7 +443,6 @@
             transform: translateX(28px);
         }
 
-        /* Social links - 3x2 grid with exact heights */
         .social-links {
             grid-area: social;
             display: grid;
@@ -493,35 +471,33 @@
             background-color: rgba(255, 255, 255, 0.005);
         }
 
-        /* Resources card */
         .resources-card {
-    grid-area: res;
-    padding: 32px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-}
+            grid-area: res;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
 
         .resources-card h3 {
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 12px;
-    color: #888888;
-}
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            color: #888888;
+        }
 
-.resources-card h2 {
-    font-size: 24px;
-    font-weight: 500;
-    color: hsl(var(--foreground));
-    max-width: 90%;
-    line-height: 1.3;
-}
+        .resources-card h2 {
+            font-size: 24px;
+            font-weight: 500;
+            color: hsl(var(--foreground));
+            max-width: 90%;
+            line-height: 1.3;
+        }
 
-        /* Style for arrow icon - circular and positioned at bottom right */
         .arrow-icon {
             position: absolute;
             bottom: 32px;
@@ -537,13 +513,11 @@
             transition: all 0.3s ease;
         }
 
-        /* Arrow icon styling to match the image */
         .arrow-icon svg {
             transform: rotate(-45deg);
             transition: all 0.3s ease;
         }
 
-        /* Hover effect for the arrow */
         .resources-card:hover .arrow-icon {
             transform: rotateY(15deg) rotateX(5deg);
         }
@@ -562,25 +536,23 @@
             transform: rotateY(15deg) rotateX(5deg);
         }
 
-        /* Add ripple effect on hover */
-       .resources-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.05);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
+        .resources-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.05);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
 
         .resources-card:hover::after {
             opacity: 1;
         }
 
-        /* Contact card */
         .contact-card {
             width: 100%;
             padding: 32px;
@@ -610,7 +582,6 @@
 
 
 
-        /* Improved view button styling */
         .view-resume-btn {
             background-color: hsl(var(--card, 0 0% 77%));
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -654,7 +625,6 @@
             z-index: 2;
         }
 
-        /* Ripple effect */
         .view-resume-btn::after {
             content: '';
             position: absolute;
@@ -686,7 +656,6 @@
             }
         }
 
-        /* Button state transition animations */
         @keyframes fadeSlideIn {
             0% {
                 opacity: 0;
@@ -721,7 +690,6 @@
             animation: fadeSlideIn 0.3s forwards;
         }
 
-        /* Icon styling */
         .icon-container {
             display: flex;
             align-items: center;
@@ -751,7 +719,6 @@
             opacity: 0;
         }
 
-        /* Hover state */
         .view-resume-btn:hover .eye-closed {
             opacity: 0;
         }
@@ -760,7 +727,6 @@
             opacity: 1;
         }
 
-        /* Clicked state */
         .view-resume-btn.clicked .eye-closed,
         .view-resume-btn.clicked .eye-open {
             opacity: 0;
@@ -799,7 +765,6 @@
         }
 
         a {
-            /* color: white; */
             text-decoration: none;
             transition: all 0.3s ease;
         }
@@ -815,7 +780,6 @@
             text-underline-offset: 4px;
         }
 
-        /* Project images specific to match the image */
         .project-card:nth-of-type(1) img {
             object-position: center;
         }
@@ -825,62 +789,63 @@
         }
 
         @media (max-width: 1200px) {
-   .grid-container {
-        grid-template-columns: repeat(6, 1fr);
-        grid-template-areas:
-            "intro intro intro intro intro intro"
-            "photo photo photo about about about"
-            "proj1 proj1 proj1 proj2 proj2 proj2"
-            "social social social social social social"
-            "news news news stack stack stack"
-            "res res res contact contact contact";
-        height: auto;
-        overflow-y: auto;
-    }
 
-    .wide {
-        display: none;
-    }
+            .grid-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-areas:
+                    "intro intro"
+                    "photo about"
+                    "proj1 proj2"
+                    "social social"
+                    "news stack"
+                    "res contact";
+                gap: 16px;
+                height: auto;
+                overflow-y: auto;
+            }
 
-    .toggle-card {
-        display: none;
-    }
+            .wide {
+                display: none;
+            }
 
-    .social-links {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        grid-template-rows: repeat(1, 1fr);
-        height: 10px;
-        margin-bottom: 15%;
-    }
+            .toggle-card {
+                display: none;
+            }
 
-    .grid-item {
-        height: var(--row-height);
-        width: 100%;
-       
-    }
+            .grid-item {
+                height: var(--row-height);
+                width: 100% !important;
+                box-sizing: border-box;
+                max-width: 100%;
+            }
 
-    .grid-item.contact-card {
-        grid-area: contact;
-    }
+            .social-links {
+                grid-area: social;
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                grid-template-rows: 1fr;
+                height: 80px;
+                margin-bottom: 9%;
+                padding: 12px;
+            }
 
-    
-   .resources-card {
-        grid-area: res;
-        width: 100%;
-        max-width: 100%;
-        height: var(--row-height);
-        box-sizing: border-box;
+            .resources-card {
+                grid-area: res;
+                margin: 0;
+                padding: 24px;
+            }
 
-        flex: 0 0 auto;
-      
-    }
-}
+            .contact-card {
+                grid-area: contact;
+                margin: 0;
+                padding: 24px;
+            }
+        }
 
         @media (max-width: 768px) {
             :root {
                 --row-height: 250px;
-                /* Slightly smaller on mobile */
             }
 
             .grid-container {
@@ -918,8 +883,6 @@
                 grid-template-rows: repeat(1, 1fr);
                 height: 10px;
                 margin-bottom: 12%;
-                /* Add some margin to prevent any lingering issues */
-
             }
 
             .contact-card {
@@ -952,8 +915,6 @@
             p {
                 font-size: 16px;
             }
-
-            /* Ensure uniform heights on mobile */
             .grid-item {
                 height: var(--row-height);
             }
@@ -962,9 +923,7 @@
         .moon-container {
             position: absolute;
             top: 50px;
-            /* Position it a bit higher */
             right: -10px;
-            /* Slightly off the right edge for a dramatic effect */
             width: 100%;
             height: 100%;
             opacity: 0.8;
@@ -972,9 +931,7 @@
             overflow: hidden;
             pointer-events: none;
             scale: 1.7;
-            /* Make it a bit larger */
             transform-origin: right center;
-            /* Scale from the right side */
 
         }
 
@@ -1002,7 +959,6 @@
         }
 
         .moon-container {
-            /* other properties */
             animation: float 15s ease-in-out infinite;
         }
     </style>
@@ -1194,10 +1150,10 @@
                     <div class="moon-container" id="moon-canvas"></div>
                     <div class="newsletter-content">
                         <h2>Get design tips & guides straight to your inbox for free!</h2>
-                        <form class="newsletter-form">
+                        <!--   <form class="newsletter-form">
                             <input type="email" placeholder="Your email address" required />
                             <button type="submit">Subscribe</button>
-                        </form>
+                        </form> -->
                     </div>
                 </div>
 

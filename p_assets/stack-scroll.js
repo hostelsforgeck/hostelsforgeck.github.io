@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
             // Icons data - you can replace these with your actual icons
             const icons = [
+                { src: './p_assets/img/vscode.png', alt: '4' },
                 { src: './p_assets/img/gpt.png', alt: '0' },
-                { src: 'https://placehold.co/48x48?text=1', alt: '1' },
-                { src: 'https://placehold.co/48x48?text=2', alt: '2' },
-                { src: 'https://placehold.co/48x48?text=3', alt: '3' },
-                { src: 'https://placehold.co/48x48?text=4', alt: '4' },
+                { src: './p_assets/img/html.png', alt: '1' },
+                { src: './p_assets/img/css.png', alt: '2' },
+                { src: './p_assets/img/js.png', alt: '3' },
                 { src: 'https://placehold.co/48x48?text=5', alt: '5' }
             ];
             const stackContainer = document.getElementById('stackContainer');

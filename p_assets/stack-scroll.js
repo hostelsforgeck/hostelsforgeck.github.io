@@ -6,7 +6,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 { src: './p_assets/img/html.png', alt: '1' },
                 { src: './p_assets/img/css.png', alt: '2' },
                 { src: './p_assets/img/js.png', alt: '3' },
-                { src: 'https://placehold.co/48x48?text=5', alt: '5' }
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg', alt: '5' },
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg', alt: '3' },
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original-wordmark.svg', alt: '3' },
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pycharm/pycharm-original.svg', alt: '3' },
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg', alt: '3' },
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original-wordmark.svg', alt: '3' },
             ];
             const stackContainer = document.getElementById('stackContainer');
             const stackIconsScroll = document.getElementById('stackIconsScroll');

@@ -988,6 +988,163 @@
             animation: float 15s ease-in-out infinite;
         }
     </style>
+    <style>
+
+.like-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    color: var(--foreground);
+}
+
+.like-button:hover {
+    transform: scale(1.05);
+}
+
+.heart-container {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Keep container transparent */
+    background-color: var(--arrow-inside-color);
+    /* border: 1px solid var(--border-arrow); */
+        color: var(--foreground);
+
+}
+
+.heart-container:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 5px 15px var(--shadow-color-hover);
+    /* Keep container transparent on hover */
+    background-color: transparent;
+}
+
+.heart-outline,
+.heart-filled {
+    position: absolute;
+    transition: all 0.3s ease;
+}
+
+.heart-outline {
+    opacity: 1;
+    color: var(--foreground-color);
+}
+
+.heart-filled {
+    opacity: 0;
+    transform: scale(0.8);
+    color: var(--foreground-color);
+}
+
+/* When liked - use theme colors for heart only */
+.like-button.liked .heart-outline {
+    opacity: 0;
+    transform: scale(1.2);
+
+}
+
+.like-button.liked .heart-filled {
+    opacity: 1;
+    transform: scale(1);
+    animation: heartPulse 0.6s ease-out;
+    /* Color the heart instead of the container */
+    color: var(--foreground-color);
+    fill: var(--foreground-color);
+
+}
+
+.like-button.liked .heart-container {
+    /* Remove background color, keep container transparent */
+    background-color: transparent;
+    border-color: var(--foreground-color);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.like-count {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--foreground-color);
+    transition: all 0.3s ease;
+}
+
+.like-button.liked .like-count {
+    color: var(--foreground-color);
+    transform: scale(1.1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Floating hearts animation - using theme colors */
+.floating-heart {
+    position: fixed;
+    pointer-events: none;
+    color: var(--foreground-color);
+    font-size: 16px;
+    animation: floatUp 2s ease-out forwards;
+    z-index: 1000;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    
+}
+
+@keyframes heartPulse {
+    0% { transform: scale(1); }
+    50% { 
+        transform: scale(1.3); 
+        filter: brightness(1.2);
+    }
+    100% { transform: scale(1); }
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-60px) scale(0.5);
+    }
+}
+
+/* Ripple effect - using theme colors */
+.heart-container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: var(--foreground-color);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+}
+
+
+
+/* Glow effect for liked state */
+.like-button.liked .heart-container {
+    animation: subtleGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes subtleGlow {
+    0% {
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+    }
+    100% {
+        box-shadow: 0 5px 25px rgba(255, 255, 255, 0.4);
+    }
+}
+</style>
 </head>
 
 <body>
@@ -995,15 +1152,13 @@
         <div class="main-container">
             <div class="grid-container">
                 <div class="grid-item intro-card row-1">
-                    <h1>Hi, I'm Saleem </h1>
-                    <p>Lead developer designer, currently working on <a href="#" class="highlight">tabletimes</a> based
-                        in Kerala
-                    </p>
+                    <h1>Hi, I'm Saleem ⎯</h1>
+                    <p>Lead developer and designer, currently working on <a href="#" class="highlight" style="letter-spacing: 1px;">tabletimes</a>, based in Kerala.</p>
                 </div>
 
                 <div class="grid-item project-card mobile-project row-1">
                     <a href="./details.html" >
-                        <img src="/api/placeholder/400/400" alt="Mobile app project" />
+                        <img src="./p_assets/img/project_img/project-1.png" alt="Mobile app project" />
                         <div class="project-info">
                             <div class="project-title">Mobile App UI</div>
                             <div class="project-arrow">
@@ -1021,7 +1176,7 @@
 
                 <div class="grid-item project-card app-design-project row-1">
                     <a href="./details.html" >
-                        <img src="/api/placeholder/400/400" alt="App design project" />
+                        <img src="./p_assets/img/project_img/project-2.png" alt="App design project" />
                         <div class="project-info">
                             <div class="project-title">App Design</div>
                             <div class="project-arrow">
@@ -1038,19 +1193,25 @@
                 </div>
 
                 <div class="social-links row-1">
-                    <!-- Twitter Icon -->
-                    <a href="#" class="social-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M22 4.01C21 4.5 20.02 4.69 19 5C17.879 3.735 16 3.665 14.14 4.38C12.28 5.095 11.029 6.881 11 9C8 9 5 7.5 3 5C3 5 -1 13 8 17C6 18 4 19 1 19C4.5 21 8 22 11.5 22C15.5 22 19.25 20.31 21.5 16.36C22.75 14.05 23.37 11 23 7.5C23 7.5 21 5 22 4.01Z"
-                                stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </a>
+                   
                     <!-- GitHub Icon -->
-                    <a href="#" class="social-icon">
+                    <a href="https://github.com/malik-l0l" class="social-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M9 19C4 20.5 4 16.5 2 16M16 22V18.13C16.0375 17.6532 15.9731 17.1738 15.811 16.7238C15.6489 16.2738 15.3929 15.8634 15.06 15.52C18.2 15.17 21.5 13.98 21.5 8.52C21.4997 7.12383 20.9627 5.7812 20 4.77C20.4559 3.54851 20.4236 2.19835 19.91 0.999999C19.91 0.999999 18.73 0.649999 16 2.48C13.708 1.85882 11.292 1.85882 9 2.48C6.27 0.649999 5.09 0.999999 5.09 0.999999C4.57638 2.19835 4.54414 3.54851 5 4.77C4.03013 5.7887 3.49252 7.14346 3.5 8.55C3.5 13.97 6.8 15.16 9.94 15.55C9.611 15.89 9.35726 16.2954 9.19531 16.7399C9.03335 17.1844 8.96681 17.6581 9 18.13V22"
+                                stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </a>
+                     <!-- LinkedIn Icon -->
+                    <a href="https://www.linkedin.com/in/saleem-malik-pv" class="social-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z"
+                                stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M6 9H2V21H6V9Z" stroke="white" strokeWidth="2" strokeLinecap="round"
+                                strokeLinejoin="round" />
+                            <path
+                                d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z"
                                 stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                     </a>
@@ -1071,19 +1232,15 @@
                                 stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </a>
-                    <!-- LinkedIn Icon -->
+                    <!-- Twitter Icon -->
                     <a href="#" class="social-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
-                                d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z"
-                                stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M6 9H2V21H6V9Z" stroke="white" strokeWidth="2" strokeLinecap="round"
-                                strokeLinejoin="round" />
-                            <path
-                                d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z"
+                                d="M22 4.01C21 4.5 20.02 4.69 19 5C17.879 3.735 16 3.665 14.14 4.38C12.28 5.095 11.029 6.881 11 9C8 9 5 7.5 3 5C3 5 -1 13 8 17C6 18 4 19 1 19C4.5 21 8 22 11.5 22C15.5 22 19.25 20.31 21.5 16.36C22.75 14.05 23.37 11 23 7.5C23 7.5 21 5 22 4.01Z"
                                 stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                     </a>
+                    
                     <!-- Stack Overflow Icon -->
                     <a href="#" class="social-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1098,7 +1255,7 @@
                         </svg>
                     </a>
                     <!-- Mail Icon -->
-                    <a href="#" class="social-icon">
+                    <a href="mailto:saleemmalikgeck24@gmail.com?subject=Professional%20Inquiry&body=Dear%20Saleem%2C" class="social-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"
@@ -1110,7 +1267,7 @@
                 </div>
 
                 <div class="grid-item photo-card row-2">
-                    <img src="./me.jpg" alt="Profile photo" />
+                    <img src="./p_assets/img/me/me.jpg" alt="Profile photo" />
                 </div>
 
                 <div class="grid-item about-card row-2">
@@ -1133,7 +1290,7 @@
 
                 <div class="grid-item project-card wide row-2">
                     <a href="./details.html">
-                        <img src="./p1.png" alt="Laptop project" />
+                        <img src="./p_assets/img/project_img/project-3.png" alt="Laptop project" />
                         <div class="project-info">
                             <div class="project-title">Quickprep.ai</div>
                             <div class="project-arrow">
@@ -1194,9 +1351,19 @@
                 </div>
 
                 <div class="grid-item toggle-card row-3">
-                    <div class="theme-toggle" id="theme-toggle">
-                    </div>
-                </div>
+    <div class="like-button" id="like-button">
+        <div class="heart-container">
+            <svg class="heart-outline" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" 
+                      stroke="#c4c4c4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <svg class="heart-filled" width="28" height="28" viewBox="0 0 24 24" fill="var(--arrow-inside-color)" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+        </div>
+        <span class="like-count">0</span>
+    </div>
+</div>
 
                 <!-- Replace your existing contact-card div with this updated version -->
                 <div class="grid-item contact-card row-3">
@@ -1253,6 +1420,120 @@
         </div>
     </div>
 
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const likeButton = document.getElementById('like-button');
+    if (!likeButton) {
+        console.log('Like button not found');
+        return;
+    }
+    
+    const likeCount = likeButton.querySelector('.like-count');
+    if (!likeCount) {
+        console.log('Like count element not found');
+        return;
+    }
+    
+    let count = 0;
+    let isLiked = false;
+
+    // Load saved state from localStorage
+    const savedCount = localStorage.getItem('likeCount');
+    const savedLiked = localStorage.getItem('isLiked');
+    
+    if (savedCount) {
+        count = parseInt(savedCount);
+        likeCount.textContent = count;
+    }
+    
+    if (savedLiked === 'true') {
+        isLiked = true;
+        likeButton.classList.add('liked');
+    }
+
+    likeButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Add clicked class for ripple effect
+        likeButton.classList.add('clicked');
+        setTimeout(() => likeButton.classList.remove('clicked'), 600);
+
+        if (!isLiked) {
+            // Like the button
+            count++;
+            isLiked = true;
+            likeButton.classList.add('liked');
+            
+            // Create floating hearts with theme colors
+            createFloatingHearts(e);
+            
+            // Add haptic feedback (if supported)
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+        } else {
+            // Unlike the button
+            count = Math.max(0, count - 1);
+            isLiked = false;
+            likeButton.classList.remove('liked');
+        }
+        
+        // Update display and save state
+        likeCount.textContent = count;
+        localStorage.setItem('likeCount', count.toString());
+        localStorage.setItem('isLiked', isLiked.toString());
+        
+        // Animate count change
+        likeCount.style.transform = 'scale(1.2)';
+        setTimeout(() => {
+            likeCount.style.transform = 'scale(1)';
+        }, 150);
+    });
+
+    function createFloatingHearts(e) {
+        const rect = likeButton.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Use different heart symbols that match the theme
+        const heartSymbols = ['♡', '♥', '◇', '◆', '⟡','♥','♥','♡'];
+
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = heartSymbols[i % heartSymbols.length];
+                heart.className = 'floating-heart';
+                heart.style.position = 'fixed';
+                heart.style.left = centerX + (Math.random() - 0.5) * 40 + 'px';
+                heart.style.top = centerY + 'px';
+                heart.style.zIndex = '1000';
+                heart.style.color = '#C4C4C4';
+                heart.style.fontSize = '20px';
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    if (heart.parentNode) {
+                        heart.remove();
+                    }
+                }, 2000);
+            }, i * 100);
+        }
+    }
+
+    // Add hover effects that match your theme
+    likeButton.addEventListener('mouseenter', function() {
+        if (!isLiked) {
+            this.style.transform = 'scale(1.05) rotate(-2deg)';
+        }
+    });
+
+    likeButton.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1) rotate(0deg)';
+    });
+});
+</script>
 
     <script src="./p_assets/resume.js"></script>
     <script src="./p_assets/stack-scroll.js"></script>

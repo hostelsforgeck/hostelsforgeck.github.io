@@ -2,12 +2,16 @@ document.addEventListener('DOMContentLoaded', function () {
             // Icons data - you can replace these with your actual icons
             const icons = [
                 { src: './p_assets/img/vscode.png', alt: '4' },
+                                                { src: './p_assets/img/php.png', alt: '3' },
+
+                { src: './p_assets/img/php.jpg', alt: '3' },
+
+
                 { src: './p_assets/img/gpt.png', alt: '0' },
                 { src: './p_assets/img/html.png', alt: '1' },
                 { src: './p_assets/img/css.png', alt: '2' },
                 { src: './p_assets/img/js.png', alt: '3' },
                 { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg', alt: '5' },
-                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg', alt: '3' },
                 { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original-wordmark.svg', alt: '3' },
                 { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pycharm/pycharm-original.svg', alt: '3' },
                 { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg', alt: '3' },

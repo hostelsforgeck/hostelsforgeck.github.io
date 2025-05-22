@@ -808,6 +808,11 @@
                 overflow-y: auto;
             }
 
+            img{
+                aspect-ratio: 16/9;
+                object-fit: contain;
+            }
+
             .wide {
                 display: none;
             }
@@ -864,11 +869,17 @@
                     "res"
                     "news"
                     "stack"
+                    "toggle"
                     "contact";
             }
 
+           
+
             .toggle-card {
-                display: none;
+                display: block;
+                align-items: center;
+                place-content: center;
+            
             }
 
             .arrow-icon {
@@ -920,6 +931,12 @@
 
             .grid-item {
                 height: var(--row-height);
+            }
+
+            .newsletter-card h2{
+                font-size: 24px;
+                letter-spacing: 0.8px;
+                
             }
         }
 
@@ -1351,7 +1368,8 @@
                 <div class="grid-item newsletter-card row-3">
                     <div class="moon-container" id="moon-canvas"></div>
                     <div class="newsletter-content">
-                        <h2>"The goal is to progress and get better."</h2>
+                        <h3 style="text-shadow: 2px 2px 4px #0D0D0D;">QUOTE</h3>
+                        <h2 style="text-shadow: 2px 2px 4px #0D0D0D;">"The goal is to progress and get better."</h2>
                         <!--   <form class="newsletter-form">
                             <input type="email" placeholder="Your email address" required />
                             <button type="submit">Subscribe</button>

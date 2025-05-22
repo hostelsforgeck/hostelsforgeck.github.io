@@ -1,21 +1,57 @@
 document.addEventListener('DOMContentLoaded', function () {
             // Icons data - you can replace these with your actual icons
             const icons = [
+
+                // env
                 { src: './p_assets/img/vscode.png', alt: '4' },
-                                                { src: './p_assets/img/php.png', alt: '3' },
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pycharm/pycharm-original.svg', alt: '3' },
 
-                { src: './p_assets/img/php.jpg', alt: '3' },
+                // backend
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg', alt: '3', style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" }  },
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg', alt: '3'  },
+                { src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg", alt: "3", style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" } },
 
 
+                // core
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg', alt: '3', style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" }  },
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original-wordmark.svg', alt: '3', style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" }  },
+
+
+                // ai-tools
+                { src: './p_assets/img/ollama.jpg', alt: '0' },
                 { src: './p_assets/img/gpt.png', alt: '0' },
+                { src: './p_assets/img/claude_1.png', alt: '0' },
+                
+
+                // frontend
                 { src: './p_assets/img/html.png', alt: '1' },
                 { src: './p_assets/img/css.png', alt: '2' },
                 { src: './p_assets/img/js.png', alt: '3' },
-                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg', alt: '5' },
-                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original-wordmark.svg', alt: '3' },
-                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pycharm/pycharm-original.svg', alt: '3' },
-                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg', alt: '3' },
-                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original-wordmark.svg', alt: '3' },
+
+                //OS
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg', alt: '5'  },
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ubuntu/ubuntu-original.svg', alt: '3' , style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" } },
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows11/windows11-original-wordmark.svg', alt: '5' , style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" }  },
+
+                // databases
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original-wordmark.svg', alt: '3', style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" }  },
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original-wordmark.svg', alt: '3' , style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" } },
+
+                //mobile-dev
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg', alt: '3', style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" }  },
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg', alt: '3' , style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" } },
+
+                //version-control
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg', alt: '3' , style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" } },
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg', alt: '3' , style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" } },
+
+                //game-dev
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original-wordmark.svg', alt: '3' , style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" } },
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg', alt: '3' , style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" } },
+
+                //diagrams
+                { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unifiedmodelinglanguage/unifiedmodelinglanguage-original.svg', alt: '3' , style: { backgroundColor: "#c4c4c4", padding: "4px", borderRadius: "8px" } },
+
             ];
             const stackContainer = document.getElementById('stackContainer');
             const stackIconsScroll = document.getElementById('stackIconsScroll');
@@ -34,18 +70,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Create icons and add them to the scroll container
             function createIcons() {
-                icons.forEach(icon => {
-                    const iconElement = document.createElement('div');
-                    iconElement.className = 'stack-icon';
+    icons.forEach(icon => {
+        const iconElement = document.createElement('div');
+        iconElement.className = 'stack-icon';
 
-                    const img = document.createElement('img');
-                    img.src = icon.src;
-                    img.alt = icon.alt;
+        const img = document.createElement('img');
+        img.src = icon.src;
+        img.alt = icon.alt;
 
-                    iconElement.appendChild(img);
-                    stackIconsScroll.appendChild(iconElement);
-                });
+        // Apply inline styles if provided
+        if (icon.style) {
+            for (const [key, value] of Object.entries(icon.style)) {
+                img.style[key] = value;
             }
+        }
+
+        iconElement.appendChild(img);
+        stackIconsScroll.appendChild(iconElement);
+    });
+}
+
 
             // Initialize the icons
             createIcons();

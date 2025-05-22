@@ -449,33 +449,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor:grabbing;
         }
 
-        .theme-toggle {
-            width: 64px;
-            height: 36.8px;
-            background-color: var(--arrow-inside-color);
-            border: 1px solid var(--border-arrow);
-            border-radius: 18px;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .theme-toggle::after {
-            content: '';
-            position: absolute;
-            width: 28px;
-            height: 28px;
-            background-color: white;
-            border-radius: 50%;
-            top: 4px;
-            left: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle.active::after {
-            transform: translateX(28px);
-        }
 
         .social-links {
             grid-area: social;
@@ -988,14 +964,14 @@
             animation: float 15s ease-in-out infinite;
         }
     </style>
-    <style>
+<style>
 
 .like-button {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    cursor: pointer;
+    cursor: grab;
     user-select: none;
     transition: all 0.3s ease;
     color: var(--foreground);
@@ -1005,38 +981,66 @@
     transform: scale(1.05);
 }
 
-.heart-container {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    /* Keep container transparent */
-    background-color: var(--arrow-inside-color);
-    /* border: 1px solid var(--border-arrow); */
-        color: var(--foreground);
-
+/* COMPLETELY NEUTRALIZE THE CONTAINER */
+.heart-container,
+.heart-container:hover,
+.heart-container:active,
+.heart-container:focus,
+.like-button .heart-container,
+.like-button:hover .heart-container,
+.like-button.liked .heart-container,
+.like-button.clicked .heart-container {
+    position: relative !important;
+    width: 50px !important;
+    height: 50px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    
+    /* FORCE REMOVE ALL VISUAL STYLING */
+    background: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+    
+    /* DISABLE ALL ANIMATIONS AND TRANSITIONS */
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    
+    color: #c4c4c4 !important;
 }
 
-.heart-container:hover {
-    border-color: var(--border-hover);
-    box-shadow: 0 5px 15px var(--shadow-color-hover);
-    /* Keep container transparent on hover */
-    background-color: transparent;
+/* DISABLE THE PSEUDO-ELEMENT RIPPLE EFFECT */
+.heart-container::before,
+.heart-container::after,
+.like-button .heart-container::before,
+.like-button .heart-container::after,
+.like-button.liked .heart-container::before,
+.like-button.liked .heart-container::after {
+    display: none !important;
+    content: none !important;
+    opacity: 0 !important;
+    animation: none !important;
 }
 
+/* HEART ELEMENTS STYLING */
 .heart-outline,
 .heart-filled {
     position: absolute;
     transition: all 0.3s ease;
+    font-size: 32px; /* Larger since no container */
+    width: auto;
+    height: auto;
+    z-index: 10;
 }
 
 .heart-outline {
     opacity: 1;
-    color: var(--foreground-color);
+    color: #f60000;
 }
 
 .heart-filled {
@@ -1045,44 +1049,32 @@
     color: var(--foreground-color);
 }
 
-/* When liked - use theme colors for heart only */
+/* LIKED STATE - APPLY EVERYTHING TO HEART ELEMENTS */
 .like-button.liked .heart-outline {
     opacity: 0;
     transform: scale(1.2);
-
 }
 
 .like-button.liked .heart-filled {
-    opacity: 1;
-    transform: scale(1);
-    animation: heartPulse 0.6s ease-out;
-    /* Color the heart instead of the container */
-    color: var(--foreground-color);
-    fill: var(--foreground-color);
-
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    color: var(--foreground-color) !important;
+    fill: var(--foreground-color) !important;
+    
+    /* APPLY GLOW TO HEART ELEMENT */
+    filter: drop-shadow(0 0 8px var(--foreground-color)) 
+            drop-shadow(0 0 16px var(--foreground-color)) 
+            drop-shadow(0 0 24px var(--foreground-color)) !important;
+    
+    text-shadow: 0 0 10px var(--foreground-color), 
+                 0 0 20px var(--foreground-color),
+                 0 0 30px var(--foreground-color) !important;
+    
+    /* ANIMATION ON HEART */
+    animation: heartGlowPulse 0.6s ease-out, heartContinuousGlow 2s ease-in-out infinite alternate !important;
 }
 
-.like-button.liked .heart-container {
-    /* Remove background color, keep container transparent */
-    background-color: transparent;
-    border-color: var(--foreground-color);
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
-}
-
-.like-count {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--foreground-color);
-    transition: all 0.3s ease;
-}
-
-.like-button.liked .like-count {
-    color: var(--foreground-color);
-    transform: scale(1.1);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-}
-
-/* Floating hearts animation - using theme colors */
+/* FLOATING HEARTS */
 .floating-heart {
     position: fixed;
     pointer-events: none;
@@ -1091,16 +1083,48 @@
     animation: floatUp 2s ease-out forwards;
     z-index: 1000;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    
 }
 
-@keyframes heartPulse {
-    0% { transform: scale(1); }
-    50% { 
-        transform: scale(1.3); 
-        filter: brightness(1.2);
+/* HEART ANIMATIONS - TARGET HEART ELEMENT DIRECTLY */
+@keyframes heartGlowPulse {
+    0% { 
+        transform: scale(1);
+        filter: drop-shadow(0 0 4px var(--foreground-color));
+        text-shadow: 0 0 8px var(--foreground-color);
     }
-    100% { transform: scale(1); }
+    50% { 
+        transform: scale(1.4); 
+        filter: drop-shadow(0 0 12px var(--foreground-color)) 
+                drop-shadow(0 0 24px var(--foreground-color))
+                drop-shadow(0 0 36px var(--foreground-color));
+        text-shadow: 0 0 15px var(--foreground-color), 
+                     0 0 30px var(--foreground-color),
+                     0 0 45px var(--foreground-color);
+    }
+    100% { 
+        transform: scale(1);
+        filter: drop-shadow(0 0 8px var(--foreground-color)) 
+                drop-shadow(0 0 16px var(--foreground-color));
+        text-shadow: 0 0 10px var(--foreground-color), 
+                     0 0 20px var(--foreground-color);
+    }
+}
+
+@keyframes heartContinuousGlow {
+    0% {
+        filter: drop-shadow(0 0 6px var(--foreground-color)) 
+                drop-shadow(0 0 12px var(--foreground-color));
+        text-shadow: 0 0 8px var(--foreground-color), 
+                     0 0 16px var(--foreground-color);
+    }
+    100% {
+        filter: drop-shadow(0 0 10px var(--foreground-color)) 
+                drop-shadow(0 0 20px var(--foreground-color)) 
+                drop-shadow(0 0 30px var(--foreground-color));
+        text-shadow: 0 0 12px var(--foreground-color), 
+                     0 0 24px var(--foreground-color),
+                     0 0 36px var(--foreground-color);
+    }
 }
 
 @keyframes floatUp {
@@ -1114,34 +1138,31 @@
     }
 }
 
-/* Ripple effect - using theme colors */
-.heart-container::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 5px;
-    height: 5px;
-    background: var(--foreground-color);
-    opacity: 0;
-    border-radius: 100%;
-    transform: scale(1, 1) translate(-50%, -50%);
-    transform-origin: 50% 50%;
+/* OVERRIDE ANY EXISTING GLOW ANIMATIONS ON CONTAINER */
+.heart-container,
+.like-button .heart-container,
+.like-button.liked .heart-container,
+.like-button:hover .heart-container {
+    animation: none !important;
 }
 
-
-
-/* Glow effect for liked state */
-.like-button.liked .heart-container {
-    animation: subtleGlow 2s ease-in-out infinite alternate;
+/* ENSURE SVG HEARTS GET PROPER GLOW */
+.like-button.liked .heart-filled svg {
+    filter: drop-shadow(0 0 8px var(--foreground-color)) 
+            drop-shadow(0 0 16px var(--foreground-color)) !important;
 }
 
+/* ENSURE ICON FONTS GET PROPER GLOW */
+.like-button.liked .heart-filled:not(svg) {
+    text-shadow: 0 0 10px var(--foreground-color), 
+                 0 0 20px var(--foreground-color),
+                 0 0 30px var(--foreground-color) !important;
+}
+
+/* DISABLE ANY SUBTLEGLOW KEYFRAMES THAT MIGHT EXIST */
 @keyframes subtleGlow {
-    0% {
-        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
-    }
-    100% {
-        box-shadow: 0 5px 25px rgba(255, 255, 255, 0.4);
+    0%, 100% {
+        /* Empty - disable this animation */
     }
 }
 </style>
@@ -1361,7 +1382,7 @@
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
             </svg>
         </div>
-        <span class="like-count">0</span>
+        <span class="like-count"></span>
     </div>
 </div>
 
@@ -1420,7 +1441,7 @@
         </div>
     </div>
 
-    <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     const likeButton = document.getElementById('like-button');
     if (!likeButton) {
@@ -1428,23 +1449,11 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
-    const likeCount = likeButton.querySelector('.like-count');
-    if (!likeCount) {
-        console.log('Like count element not found');
-        return;
-    }
-    
-    let count = 0;
     let isLiked = false;
+    let isAnimating = false;
 
     // Load saved state from localStorage
-    const savedCount = localStorage.getItem('likeCount');
     const savedLiked = localStorage.getItem('isLiked');
-    
-    if (savedCount) {
-        count = parseInt(savedCount);
-        likeCount.textContent = count;
-    }
     
     if (savedLiked === 'true') {
         isLiked = true;
@@ -1455,40 +1464,45 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         e.stopPropagation();
         
+        // Prevent spam clicking during animation
+        if (isAnimating) return;
+        isAnimating = true;
+        
         // Add clicked class for ripple effect
         likeButton.classList.add('clicked');
         setTimeout(() => likeButton.classList.remove('clicked'), 600);
 
         if (!isLiked) {
             // Like the button
-            count++;
             isLiked = true;
             likeButton.classList.add('liked');
             
-            // Create floating hearts with theme colors
+            // Enhanced effects for liking
             createFloatingHearts(e);
+            createSparkleEffect(e);
             
-            // Add haptic feedback (if supported)
+            // Enhanced haptic feedback
             if (navigator.vibrate) {
-                navigator.vibrate(50);
+                navigator.vibrate([50, 30, 100]); // Pattern vibration
             }
         } else {
-            // Unlike the button
-            count = Math.max(0, count - 1);
+            // Unlike the button with subtle effect
             isLiked = false;
             likeButton.classList.remove('liked');
+            createDislikeEffect(e);
+            
+            if (navigator.vibrate) {
+                navigator.vibrate(25); // Gentle vibration for unlike
+            }
         }
         
-        // Update display and save state
-        likeCount.textContent = count;
-        localStorage.setItem('likeCount', count.toString());
+        // Save state
         localStorage.setItem('isLiked', isLiked.toString());
         
-        // Animate count change
-        likeCount.style.transform = 'scale(1.2)';
+        // Reset animation lock
         setTimeout(() => {
-            likeCount.style.transform = 'scale(1)';
-        }, 150);
+            isAnimating = false;
+        }, 800);
     });
 
     function createFloatingHearts(e) {
@@ -1496,20 +1510,25 @@ document.addEventListener('DOMContentLoaded', function() {
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
 
-        // Use different heart symbols that match the theme
-        const heartSymbols = ['♡', '♥', '◇', '◆', '⟡','♥','♥','♡'];
+        // More variety in heart symbols
+        const heartSymbols = ['♡', '♥', '💖', '💕', '✨', '⭐', '💫'];
 
+        // Create more hearts with varied timing
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
                 const heart = document.createElement('div');
                 heart.innerHTML = heartSymbols[i % heartSymbols.length];
                 heart.className = 'floating-heart';
                 heart.style.position = 'fixed';
-                heart.style.left = centerX + (Math.random() - 0.5) * 40 + 'px';
-                heart.style.top = centerY + 'px';
+                heart.style.left = centerX + (Math.random() - 0.5) * 80 + 'px';
+                heart.style.top = centerY + (Math.random() - 0.5) * 20 + 'px';
                 heart.style.zIndex = '1000';
-                heart.style.color = '#C4C4C4';
-                heart.style.fontSize = '20px';
+                heart.style.color = 'var(--foreground-color)';
+                heart.style.fontSize = (16 + Math.random() * 8) + 'px';
+                heart.style.pointerEvents = 'none';
+                
+                // Add random rotation
+                heart.style.transform = `rotate(${Math.random() * 360}deg)`;
                 
                 document.body.appendChild(heart);
                 
@@ -1517,21 +1536,188 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (heart.parentNode) {
                         heart.remove();
                     }
-                }, 2000);
+                }, 2500);
+            }, i * 80);
+        }
+    }
+
+    function createSparkleEffect(e) {
+        const rect = likeButton.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Create sparkle particles
+        for (let i = 0; i < 7; i++) {
+            setTimeout(() => {
+                const sparkle = document.createElement('div');
+                sparkle.innerHTML = '✨';
+                sparkle.className = 'sparkle-particle';
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = centerX + (Math.random() - 0.5) * 100 + 'px';
+                sparkle.style.top = centerY + (Math.random() - 0.5) * 100 + 'px';
+                sparkle.style.zIndex = '999';
+                sparkle.style.color = 'var(--foreground-color)';
+                sparkle.style.fontSize = (8 + Math.random() * 6) + 'px';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.animation = 'sparkleFloat 1.5s ease-out forwards';
+                
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    if (sparkle.parentNode) {
+                        sparkle.remove();
+                    }
+                }, 1500);
+            }, i * 50);
+        }
+    }
+
+    function createDislikeEffect(e) {
+        const rect = likeButton.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Subtle unlike effect
+        for (let i = 0; i < 6; i++) {
+            setTimeout(() => {
+                const particle = document.createElement('div');
+                particle.innerHTML = '💔';
+                particle.className = 'dislike-particle';
+                particle.style.position = 'fixed';
+                particle.style.left = centerX + (Math.random() - 0.5) * 30 + 'px';
+                particle.style.top = centerY + 'px';
+                particle.style.zIndex = '1000';
+                particle.style.color = 'var(--foreground-color)';
+                particle.style.fontSize = '12px';
+                particle.style.pointerEvents = 'none';
+                particle.style.opacity = '0.7';
+                particle.style.animation = 'fadeDown 1s ease-out forwards';
+                
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.remove();
+                    }
+                }, 1000);
             }, i * 100);
         }
     }
 
-    // Add hover effects that match your theme
+
+
+    // Enhanced hover effects
     likeButton.addEventListener('mouseenter', function() {
-        if (!isLiked) {
-            this.style.transform = 'scale(1.05) rotate(-2deg)';
+        if (!isLiked && !isAnimating) {
+            this.style.transform = 'scale(1.08) rotate(-3deg)';
+            this.style.filter = 'brightness(1.1)';
+            
+            // Subtle preview sparkles on hover
+            createPreviewSparkles();
+        } else if (isLiked) {
+            this.style.transform = 'scale(1.05)';
+            this.style.filter = 'brightness(1.2)';
         }
     });
 
     likeButton.addEventListener('mouseleave', function() {
         this.style.transform = 'scale(1) rotate(0deg)';
+        this.style.filter = 'brightness(1)';
     });
+
+    function createPreviewSparkles() {
+        const rect = likeButton.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Subtle preview sparkles
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                const sparkle = document.createElement('div');
+                sparkle.innerHTML = '✨';
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = centerX + (Math.random() - 0.5) * 50 + 'px';
+                sparkle.style.top = centerY + (Math.random() - 0.5) * 50 + 'px';
+                sparkle.style.zIndex = '998';
+                sparkle.style.color = 'var(--foreground-color)';
+                sparkle.style.fontSize = '8px';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.opacity = '0.6';
+                sparkle.style.animation = 'previewSparkle 0.8s ease-out forwards';
+                
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    if (sparkle.parentNode) {
+                        sparkle.remove();
+                    }
+                }, 800);
+            }, i * 150);
+        }
+    }
+
+    // Add dynamic CSS animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes sparkleFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-80px) scale(0.3) rotate(360deg);
+            }
+        }
+        
+        @keyframes fadeDown {
+            0% {
+                opacity: 0.7;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.5);
+            }
+        }
+        
+ 
+        
+        @keyframes previewSparkle {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+        }
+        
+        .floating-heart {
+            animation: floatUp 2.5s ease-out forwards !important;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateY(-30px) scale(1.1) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(0.3) rotate(360deg);
+            }
+        }
+    `;
+    document.head.appendChild(style);
 });
 </script>
 

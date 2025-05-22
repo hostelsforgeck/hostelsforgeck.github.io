@@ -1,3 +1,4 @@
+<!-- about.html -->
 <!DOCTYPE html>
 <html lang="en" class="hide-scrollbar">
 
@@ -37,7 +38,7 @@
             --ripple-color: rgba(255, 255, 255, 0.3);
 
             /* Layout */
-            --border-radius: 16px;
+            --border-radius: 20px;
             --card-padding: 32px;
             --card-padding-mobile: 24px;
             --container-padding: 16px;
@@ -161,13 +162,19 @@
             min-height: 220px;
         }
 
+         .grid-item:hover{
+            transform: translateY(-1px);
+            border-color: var(--border-hover);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
         .close-button {
             position: absolute;
             top: 25px;
             left: 50%;
             transform: translateX(-50%);
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -184,9 +191,9 @@
         }
 
         .close-button svg {
-            width: 18px;
-            height: 18px;
-            transition: transform 0.3s ease;
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s var(--transition-function);
         }
 
         .close-button:hover svg {
@@ -478,7 +485,7 @@
         }
 
         .copy-email.success {
-            border-color: rgba(46, 213, 115, 0.5);
+            border-color: var(--border-card);
         }
 
         .copy-email.error {

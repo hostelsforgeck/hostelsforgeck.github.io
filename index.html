@@ -22,7 +22,7 @@
             --foreground: 0 0% 77%;
             --card: 0 0% 10%;
             --card-foreground: 0 0% 100%;
-            --border-radius: 16px;
+            --border-radius: 20px;
             --row-height: 220px;
 
             /* Added global color variables */
@@ -32,6 +32,8 @@
 
             --border-arrow: rgba(255, 255, 255, 0.1);
             --border-card: rgba(255, 255, 255, 0.05);
+            --border-hover: rgba(255, 255, 255, 0.15);
+
 
             /* top-of-cards */
             --secondary-text-color: #888888;
@@ -103,6 +105,12 @@
             transition: all 0.3s ease;
             border: 1px solid var(--border-card);
             height: var(--row-height);
+        }
+
+        .grid-item:hover{
+            transform: translateY(-1px);
+            border-color: var(--border-hover);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
         }
 
         .row-1 {
@@ -493,6 +501,9 @@
 
         .social-icon:hover {
             background-color: var(--hover-bg-social-color);
+            transform: translateY(-1px);
+            border-color: var(--border-hover);
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
         }
 
         .resources-card {
@@ -991,7 +1002,7 @@
                 </div>
 
                 <div class="grid-item project-card mobile-project row-1">
-                    <a href="https://example.com/mobile-project" target="_blank">
+                    <a href="./details.html" >
                         <img src="/api/placeholder/400/400" alt="Mobile app project" />
                         <div class="project-info">
                             <div class="project-title">Mobile App UI</div>
@@ -1009,7 +1020,7 @@
                 </div>
 
                 <div class="grid-item project-card app-design-project row-1">
-                    <a href="https://example.com/app-design" target="_blank">
+                    <a href="./details.html" >
                         <img src="/api/placeholder/400/400" alt="App design project" />
                         <div class="project-info">
                             <div class="project-title">App Design</div>
@@ -1121,7 +1132,7 @@
                 </div>
 
                 <div class="grid-item project-card wide row-2">
-                    <a href="https://example.com/web-project" target="_blank">
+                    <a href="./details.html">
                         <img src="./p1.png" alt="Laptop project" />
                         <div class="project-info">
                             <div class="project-title">Quickprep.ai</div>
@@ -1141,7 +1152,7 @@
                 </div>
 
                 <!-- Resources card HTML -->
-                <a href="www.google.com">
+                <a href="./projects.html">
                     <div class="grid-item resources-card row-2">
 
                         <div>
@@ -1162,7 +1173,7 @@
                 <div class="grid-item newsletter-card row-3">
                     <div class="moon-container" id="moon-canvas"></div>
                     <div class="newsletter-content">
-                        <h2>Get design tips & guides straight to your inbox for free!</h2>
+                        <h2>"The goal is to progress and get better."</h2>
                         <!--   <form class="newsletter-form">
                             <input type="email" placeholder="Your email address" required />
                             <button type="submit">Subscribe</button>

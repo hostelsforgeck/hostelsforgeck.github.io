@@ -107,7 +107,7 @@
             height: var(--row-height);
         }
 
-        .grid-item:hover{
+        .grid-item:hover {
             transform: translateY(-1px);
             border-color: var(--border-hover);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
@@ -220,7 +220,7 @@
         .project-title {
             font-size: 18px;
             font-weight: 500;
-            color: var(--foreground-color);
+            color: #fdf0f0;
         }
 
         .project-arrow {
@@ -358,6 +358,12 @@
             border-radius: var(--border-radius);
             border: 1px solid var(--border-card);
         }
+        
+        .grid-item.stack-card:hover{
+             transform: translateY(-1px);
+            border-color: var(--border-hover);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
 
         .stack-card h3 {
             font-size: 12px;
@@ -449,7 +455,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor:grabbing;
+            cursor: grabbing;
         }
 
 
@@ -808,7 +814,7 @@
                 overflow-y: auto;
             }
 
-            img{
+            img {
                 aspect-ratio: 16/9;
                 object-fit: contain;
             }
@@ -873,13 +879,13 @@
                     "contact";
             }
 
-           
+
 
             .toggle-card {
                 display: block;
                 align-items: center;
                 place-content: center;
-            
+
             }
 
             .arrow-icon {
@@ -933,10 +939,10 @@
                 height: var(--row-height);
             }
 
-            .newsletter-card h2{
+            .newsletter-card h2 {
                 font-size: 24px;
                 letter-spacing: 0.8px;
-                
+
             }
         }
 
@@ -981,208 +987,205 @@
             animation: float 15s ease-in-out infinite;
         }
     </style>
-<style>
+    <style>
+        .like-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: grab;
+            user-select: none;
+            transition: all 0.3s ease;
+            color: var(--foreground);
+        }
 
-.like-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    cursor: grab;
-    user-select: none;
-    transition: all 0.3s ease;
-    color: var(--foreground);
-}
+        .like-button:hover {
+            transform: scale(1.05);
+        }
 
-.like-button:hover {
-    transform: scale(1.05);
-}
+        /* COMPLETELY NEUTRALIZE THE CONTAINER */
+        .heart-container,
+        .heart-container:hover,
+        .heart-container:active,
+        .heart-container:focus,
+        .like-button .heart-container,
+        .like-button:hover .heart-container,
+        .like-button.liked .heart-container,
+        .like-button.clicked .heart-container {
+            position: relative !important;
+            width: 50px !important;
+            height: 50px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
 
-/* COMPLETELY NEUTRALIZE THE CONTAINER */
-.heart-container,
-.heart-container:hover,
-.heart-container:active,
-.heart-container:focus,
-.like-button .heart-container,
-.like-button:hover .heart-container,
-.like-button.liked .heart-container,
-.like-button.clicked .heart-container {
-    position: relative !important;
-    width: 50px !important;
-    height: 50px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    
-    /* FORCE REMOVE ALL VISUAL STYLING */
-    background: none !important;
-    background-color: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    outline: none !important;
-    
-    /* DISABLE ALL ANIMATIONS AND TRANSITIONS */
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
-    filter: none !important;
-    
-    color: #c4c4c4 !important;
-}
+            /* FORCE REMOVE ALL VISUAL STYLING */
+            background: none !important;
+            background-color: transparent !important;
+            border: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            outline: none !important;
 
-/* DISABLE THE PSEUDO-ELEMENT RIPPLE EFFECT */
-.heart-container::before,
-.heart-container::after,
-.like-button .heart-container::before,
-.like-button .heart-container::after,
-.like-button.liked .heart-container::before,
-.like-button.liked .heart-container::after {
-    display: none !important;
-    content: none !important;
-    opacity: 0 !important;
-    animation: none !important;
-}
+            /* DISABLE ALL ANIMATIONS AND TRANSITIONS */
+            animation: none !important;
+            transition: none !important;
+            transform: none !important;
+            filter: none !important;
 
-/* HEART ELEMENTS STYLING */
-.heart-outline,
-.heart-filled {
-    position: absolute;
-    transition: all 0.3s ease;
-    font-size: 32px; /* Larger since no container */
-    width: auto;
-    height: auto;
-    z-index: 10;
-}
+            color: #c4c4c4 !important;
+        }
 
-.heart-outline {
-    opacity: 1;
-    color: #f60000;
-}
+        /* DISABLE THE PSEUDO-ELEMENT RIPPLE EFFECT */
+        .heart-container::before,
+        .heart-container::after,
+        .like-button .heart-container::before,
+        .like-button .heart-container::after,
+        .like-button.liked .heart-container::before,
+        .like-button.liked .heart-container::after {
+            display: none !important;
+            content: none !important;
+            opacity: 0 !important;
+            animation: none !important;
+        }
 
-.heart-filled {
-    opacity: 0;
-    transform: scale(0.8);
-    color: var(--foreground-color);
-}
+        /* HEART ELEMENTS STYLING */
+        .heart-outline,
+        .heart-filled {
+            position: absolute;
+            transition: all 0.3s ease;
+            font-size: 32px;
+            /* Larger since no container */
+            width: auto;
+            height: auto;
+            z-index: 10;
+        }
 
-/* LIKED STATE - APPLY EVERYTHING TO HEART ELEMENTS */
-.like-button.liked .heart-outline {
-    opacity: 0;
-    transform: scale(1.2);
-}
+        .heart-outline {
+            opacity: 1;
+            color: #f60000;
+        }
 
-.like-button.liked .heart-filled {
-    opacity: 1 !important;
-    transform: scale(1) !important;
-    color: var(--foreground-color) !important;
-    fill: var(--foreground-color) !important;
-    
-    /* APPLY GLOW TO HEART ELEMENT */
-    filter: drop-shadow(0 0 8px var(--foreground-color)) 
-            drop-shadow(0 0 16px var(--foreground-color)) 
-            drop-shadow(0 0 24px var(--foreground-color)) !important;
-    
-    text-shadow: 0 0 10px var(--foreground-color), 
-                 0 0 20px var(--foreground-color),
-                 0 0 30px var(--foreground-color) !important;
-    
-    /* ANIMATION ON HEART */
-    animation: heartGlowPulse 0.6s ease-out, heartContinuousGlow 2s ease-in-out infinite alternate !important;
-}
+        .heart-filled {
+            opacity: 0;
+            transform: scale(0.8);
+            color: var(--foreground-color);
+        }
 
-/* FLOATING HEARTS */
-.floating-heart {
-    position: fixed;
-    pointer-events: none;
-    color: var(--foreground-color);
-    font-size: 16px;
-    animation: floatUp 2s ease-out forwards;
-    z-index: 1000;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
+        /* LIKED STATE - APPLY EVERYTHING TO HEART ELEMENTS */
+        .like-button.liked .heart-outline {
+            opacity: 0;
+            transform: scale(1.2);
+        }
 
-/* HEART ANIMATIONS - TARGET HEART ELEMENT DIRECTLY */
-@keyframes heartGlowPulse {
-    0% { 
-        transform: scale(1);
-        filter: drop-shadow(0 0 4px var(--foreground-color));
-        text-shadow: 0 0 8px var(--foreground-color);
-    }
-    50% { 
-        transform: scale(1.4); 
-        filter: drop-shadow(0 0 12px var(--foreground-color)) 
-                drop-shadow(0 0 24px var(--foreground-color))
-                drop-shadow(0 0 36px var(--foreground-color));
-        text-shadow: 0 0 15px var(--foreground-color), 
-                     0 0 30px var(--foreground-color),
-                     0 0 45px var(--foreground-color);
-    }
-    100% { 
-        transform: scale(1);
-        filter: drop-shadow(0 0 8px var(--foreground-color)) 
-                drop-shadow(0 0 16px var(--foreground-color));
-        text-shadow: 0 0 10px var(--foreground-color), 
-                     0 0 20px var(--foreground-color);
-    }
-}
+        .like-button.liked .heart-filled {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+            color: var(--foreground-color) !important;
+            fill: var(--foreground-color) !important;
 
-@keyframes heartContinuousGlow {
-    0% {
-        filter: drop-shadow(0 0 6px var(--foreground-color)) 
-                drop-shadow(0 0 12px var(--foreground-color));
-        text-shadow: 0 0 8px var(--foreground-color), 
-                     0 0 16px var(--foreground-color);
-    }
-    100% {
-        filter: drop-shadow(0 0 10px var(--foreground-color)) 
-                drop-shadow(0 0 20px var(--foreground-color)) 
-                drop-shadow(0 0 30px var(--foreground-color));
-        text-shadow: 0 0 12px var(--foreground-color), 
-                     0 0 24px var(--foreground-color),
-                     0 0 36px var(--foreground-color);
-    }
-}
+            /* APPLY GLOW TO HEART ELEMENT */
+            filter: drop-shadow(0 0 8px var(--foreground-color)) drop-shadow(0 0 16px var(--foreground-color)) drop-shadow(0 0 24px var(--foreground-color)) !important;
 
-@keyframes floatUp {
-    0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-60px) scale(0.5);
-    }
-}
+            text-shadow: 0 0 10px var(--foreground-color),
+                0 0 20px var(--foreground-color),
+                0 0 30px var(--foreground-color) !important;
 
-/* OVERRIDE ANY EXISTING GLOW ANIMATIONS ON CONTAINER */
-.heart-container,
-.like-button .heart-container,
-.like-button.liked .heart-container,
-.like-button:hover .heart-container {
-    animation: none !important;
-}
+            /* ANIMATION ON HEART */
+            animation: heartGlowPulse 0.6s ease-out, heartContinuousGlow 2s ease-in-out infinite alternate !important;
+        }
 
-/* ENSURE SVG HEARTS GET PROPER GLOW */
-.like-button.liked .heart-filled svg {
-    filter: drop-shadow(0 0 8px var(--foreground-color)) 
-            drop-shadow(0 0 16px var(--foreground-color)) !important;
-}
+        /* FLOATING HEARTS */
+        .floating-heart {
+            position: fixed;
+            pointer-events: none;
+            color: var(--foreground-color);
+            font-size: 16px;
+            animation: floatUp 2s ease-out forwards;
+            z-index: 1000;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
 
-/* ENSURE ICON FONTS GET PROPER GLOW */
-.like-button.liked .heart-filled:not(svg) {
-    text-shadow: 0 0 10px var(--foreground-color), 
-                 0 0 20px var(--foreground-color),
-                 0 0 30px var(--foreground-color) !important;
-}
+        /* HEART ANIMATIONS - TARGET HEART ELEMENT DIRECTLY */
+        @keyframes heartGlowPulse {
+            0% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 4px var(--foreground-color));
+                text-shadow: 0 0 8px var(--foreground-color);
+            }
 
-/* DISABLE ANY SUBTLEGLOW KEYFRAMES THAT MIGHT EXIST */
-@keyframes subtleGlow {
-    0%, 100% {
-        /* Empty - disable this animation */
-    }
-}
-</style>
+            50% {
+                transform: scale(1.4);
+                filter: drop-shadow(0 0 12px var(--foreground-color)) drop-shadow(0 0 24px var(--foreground-color)) drop-shadow(0 0 36px var(--foreground-color));
+                text-shadow: 0 0 15px var(--foreground-color),
+                    0 0 30px var(--foreground-color),
+                    0 0 45px var(--foreground-color);
+            }
+
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 8px var(--foreground-color)) drop-shadow(0 0 16px var(--foreground-color));
+                text-shadow: 0 0 10px var(--foreground-color),
+                    0 0 20px var(--foreground-color);
+            }
+        }
+
+        @keyframes heartContinuousGlow {
+            0% {
+                filter: drop-shadow(0 0 6px var(--foreground-color)) drop-shadow(0 0 12px var(--foreground-color));
+                text-shadow: 0 0 8px var(--foreground-color),
+                    0 0 16px var(--foreground-color);
+            }
+
+            100% {
+                filter: drop-shadow(0 0 10px var(--foreground-color)) drop-shadow(0 0 20px var(--foreground-color)) drop-shadow(0 0 30px var(--foreground-color));
+                text-shadow: 0 0 12px var(--foreground-color),
+                    0 0 24px var(--foreground-color),
+                    0 0 36px var(--foreground-color);
+            }
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-60px) scale(0.5);
+            }
+        }
+
+        /* OVERRIDE ANY EXISTING GLOW ANIMATIONS ON CONTAINER */
+        .heart-container,
+        .like-button .heart-container,
+        .like-button.liked .heart-container,
+        .like-button:hover .heart-container {
+            animation: none !important;
+        }
+
+        /* ENSURE SVG HEARTS GET PROPER GLOW */
+        .like-button.liked .heart-filled svg {
+            filter: drop-shadow(0 0 8px var(--foreground-color)) drop-shadow(0 0 16px var(--foreground-color)) !important;
+        }
+
+        /* ENSURE ICON FONTS GET PROPER GLOW */
+        .like-button.liked .heart-filled:not(svg) {
+            text-shadow: 0 0 10px var(--foreground-color),
+                0 0 20px var(--foreground-color),
+                0 0 30px var(--foreground-color) !important;
+        }
+
+        /* DISABLE ANY SUBTLEGLOW KEYFRAMES THAT MIGHT EXIST */
+        @keyframes subtleGlow {
+
+            0%,
+            100% {
+                /* Empty - disable this animation */
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -1191,14 +1194,15 @@
             <div class="grid-container">
                 <div class="grid-item intro-card row-1">
                     <h1>Hi, I'm Saleem ⎯</h1>
-                    <p>Lead developer and designer, currently working on <a href="#" class="highlight" style="letter-spacing: 1px;">tabletimes</a>, based in Kerala.</p>
+                    <p>Lead developer and designer, currently working on <a href="#" class="highlight"
+                            style="letter-spacing: 1px;">tabletimes</a>, based in Kerala.</p>
                 </div>
 
                 <div class="grid-item project-card mobile-project row-1">
-                    <a href="./details.html" >
-                        <img src="./p_assets/img/project_img/project-1.png" alt="Mobile app project" />
+                    <a href="./pages/details-nestclub.html">
+                        <img src="./assets/img/project_img/project-1.png" alt="Mobile app project" />
                         <div class="project-info">
-                            <div class="project-title">Mobile App UI</div>
+                            <div class="project-title">Nestclub</div>
                             <div class="project-arrow">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -1213,10 +1217,10 @@
                 </div>
 
                 <div class="grid-item project-card app-design-project row-1">
-                    <a href="./details.html" >
-                        <img src="./p_assets/img/project_img/project-2.png" alt="App design project" />
+                    <a href="./pages/details-tabletimes.html">
+                        <img src="./assets/img/project_img/project-2.png" alt="App design project" />
                         <div class="project-info">
-                            <div class="project-title">App Design</div>
+                            <div class="project-title">tabletimes</div>
                             <div class="project-arrow">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -1231,7 +1235,7 @@
                 </div>
 
                 <div class="social-links row-1">
-                   
+
                     <!-- GitHub Icon -->
                     <a href="https://github.com/malik-l0l" class="social-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1240,7 +1244,7 @@
                                 stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                     </a>
-                     <!-- LinkedIn Icon -->
+                    <!-- LinkedIn Icon -->
                     <a href="https://www.linkedin.com/in/saleem-malik-pv" class="social-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -1278,7 +1282,7 @@
                                 stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                     </a>
-                    
+
                     <!-- Stack Overflow Icon -->
                     <a href="#" class="social-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1293,7 +1297,8 @@
                         </svg>
                     </a>
                     <!-- Mail Icon -->
-                    <a href="mailto:saleemmalikgeck24@gmail.com?subject=Professional%20Inquiry&body=Dear%20Saleem%2C" class="social-icon">
+                    <a href="mailto:saleemmalikgeck24@gmail.com?subject=Professional%20Inquiry&body=Dear%20Saleem%2C%0D%0A%0D%0AI%20hope%20this%20message%20finds%20you%20well.%20"
+                        class="social-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"
@@ -1305,30 +1310,29 @@
                 </div>
 
                 <div class="grid-item photo-card row-2">
-                    <img src="./p_assets/img/me/me.jpg" alt="Profile photo" />
+                    <img src="./assets/img/me_img/me.jpg" alt="Profile photo" />
                 </div>
 
-                <div class="grid-item about-card row-2">
-                    <a href="./about.html">
-                        <div class="about-content">
-                            <div>
-                                <h3>ABOUT</h3>
-                                <h2>Passionate about design and enjoy solving problems.</h2>
-                            </div>
-                            <div class="arrow-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" strokeWidth="2"
-                                        strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </div>
+                <div class="grid-item about-card row-2" onclick="window.location='./pages/about.html'"
+                    style="cursor: pointer;">
+                    <div class="about-content">
+                        <div>
+                            <h3>ABOUT</h3>
+                            <h2>Passionate about design and enjoy solving problems.</h2>
                         </div>
-                    </a>
+                        <div class="arrow-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" strokeWidth="2"
+                                    strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="grid-item project-card wide row-2">
-                    <a href="./details.html">
-                        <img src="./p_assets/img/project_img/project-3.png" alt="Laptop project" />
+                    <a href="./pages/details-quickprepai.html">
+                        <img src="./assets/img/project_img/project-3.png" alt="Laptop project" />
                         <div class="project-info">
                             <div class="project-title">Quickprep.ai</div>
                             <div class="project-arrow">
@@ -1347,7 +1351,7 @@
                 </div>
 
                 <!-- Resources card HTML -->
-                <a href="./projects.html">
+                <a href="./pages/projects.html">
                     <div class="grid-item resources-card row-2">
 
                         <div>
@@ -1390,19 +1394,24 @@
                 </div>
 
                 <div class="grid-item toggle-card row-3">
-    <div class="like-button" id="like-button">
-        <div class="heart-container">
-            <svg class="heart-outline" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" 
-                      stroke="#c4c4c4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <svg class="heart-filled" width="28" height="28" viewBox="0 0 24 24" fill="var(--arrow-inside-color)" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-            </svg>
-        </div>
-        <span class="like-count"></span>
-    </div>
-</div>
+                    <div class="like-button" id="like-button">
+                        <div class="heart-container">
+                            <svg class="heart-outline" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                                    stroke="#c4c4c4" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <svg class="heart-filled" width="28" height="28" viewBox="0 0 24 24"
+                                fill="var(--arrow-inside-color)" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                            </svg>
+                        </div>
+                        <span class="like-count"></span>
+                    </div>
+                </div>
 
                 <!-- Replace your existing contact-card div with this updated version -->
                 <div class="grid-item contact-card row-3">
@@ -1459,224 +1468,224 @@
         </div>
     </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const likeButton = document.getElementById('like-button');
-    if (!likeButton) {
-        console.log('Like button not found');
-        return;
-    }
-    
-    let isLiked = false;
-    let isAnimating = false;
-
-    // Load saved state from localStorage
-    const savedLiked = localStorage.getItem('isLiked');
-    
-    if (savedLiked === 'true') {
-        isLiked = true;
-        likeButton.classList.add('liked');
-    }
-
-    likeButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        // Prevent spam clicking during animation
-        if (isAnimating) return;
-        isAnimating = true;
-        
-        // Add clicked class for ripple effect
-        likeButton.classList.add('clicked');
-        setTimeout(() => likeButton.classList.remove('clicked'), 600);
-
-        if (!isLiked) {
-            // Like the button
-            isLiked = true;
-            likeButton.classList.add('liked');
-            
-            // Enhanced effects for liking
-            createFloatingHearts(e);
-            createSparkleEffect(e);
-            
-            // Enhanced haptic feedback
-            if (navigator.vibrate) {
-                navigator.vibrate([50, 30, 100]); // Pattern vibration
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const likeButton = document.getElementById('like-button');
+            if (!likeButton) {
+                console.log('Like button not found');
+                return;
             }
-        } else {
-            // Unlike the button with subtle effect
-            isLiked = false;
-            likeButton.classList.remove('liked');
-            createDislikeEffect(e);
-            
-            if (navigator.vibrate) {
-                navigator.vibrate(25); // Gentle vibration for unlike
+
+            let isLiked = false;
+            let isAnimating = false;
+
+            // Load saved state from localStorage
+            const savedLiked = localStorage.getItem('isLiked');
+
+            if (savedLiked === 'true') {
+                isLiked = true;
+                likeButton.classList.add('liked');
             }
-        }
-        
-        // Save state
-        localStorage.setItem('isLiked', isLiked.toString());
-        
-        // Reset animation lock
-        setTimeout(() => {
-            isAnimating = false;
-        }, 800);
-    });
 
-    function createFloatingHearts(e) {
-        const rect = likeButton.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
+            likeButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
 
-        // More variety in heart symbols
-        const heartSymbols = ['♡', '♥', '💖', '💕', '✨', '⭐', '💫'];
+                // Prevent spam clicking during animation
+                if (isAnimating) return;
+                isAnimating = true;
 
-        // Create more hearts with varied timing
-        for (let i = 0; i < 5; i++) {
-            setTimeout(() => {
-                const heart = document.createElement('div');
-                heart.innerHTML = heartSymbols[i % heartSymbols.length];
-                heart.className = 'floating-heart';
-                heart.style.position = 'fixed';
-                heart.style.left = centerX + (Math.random() - 0.5) * 80 + 'px';
-                heart.style.top = centerY + (Math.random() - 0.5) * 20 + 'px';
-                heart.style.zIndex = '1000';
-                heart.style.color = 'var(--foreground-color)';
-                heart.style.fontSize = (16 + Math.random() * 8) + 'px';
-                heart.style.pointerEvents = 'none';
-                
-                // Add random rotation
-                heart.style.transform = `rotate(${Math.random() * 360}deg)`;
-                
-                document.body.appendChild(heart);
-                
-                setTimeout(() => {
-                    if (heart.parentNode) {
-                        heart.remove();
+                // Add clicked class for ripple effect
+                likeButton.classList.add('clicked');
+                setTimeout(() => likeButton.classList.remove('clicked'), 600);
+
+                if (!isLiked) {
+                    // Like the button
+                    isLiked = true;
+                    likeButton.classList.add('liked');
+
+                    // Enhanced effects for liking
+                    createFloatingHearts(e);
+                    createSparkleEffect(e);
+
+                    // Enhanced haptic feedback
+                    if (navigator.vibrate) {
+                        navigator.vibrate([50, 30, 100]); // Pattern vibration
                     }
-                }, 2500);
-            }, i * 80);
-        }
-    }
+                } else {
+                    // Unlike the button with subtle effect
+                    isLiked = false;
+                    likeButton.classList.remove('liked');
+                    createDislikeEffect(e);
 
-    function createSparkleEffect(e) {
-        const rect = likeButton.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-
-        // Create sparkle particles
-        for (let i = 0; i < 7; i++) {
-            setTimeout(() => {
-                const sparkle = document.createElement('div');
-                sparkle.innerHTML = '✨';
-                sparkle.className = 'sparkle-particle';
-                sparkle.style.position = 'fixed';
-                sparkle.style.left = centerX + (Math.random() - 0.5) * 100 + 'px';
-                sparkle.style.top = centerY + (Math.random() - 0.5) * 100 + 'px';
-                sparkle.style.zIndex = '999';
-                sparkle.style.color = 'var(--foreground-color)';
-                sparkle.style.fontSize = (8 + Math.random() * 6) + 'px';
-                sparkle.style.pointerEvents = 'none';
-                sparkle.style.animation = 'sparkleFloat 1.5s ease-out forwards';
-                
-                document.body.appendChild(sparkle);
-                
-                setTimeout(() => {
-                    if (sparkle.parentNode) {
-                        sparkle.remove();
+                    if (navigator.vibrate) {
+                        navigator.vibrate(25); // Gentle vibration for unlike
                     }
-                }, 1500);
-            }, i * 50);
-        }
-    }
+                }
 
-    function createDislikeEffect(e) {
-        const rect = likeButton.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
+                // Save state
+                localStorage.setItem('isLiked', isLiked.toString());
 
-        // Subtle unlike effect
-        for (let i = 0; i < 6; i++) {
-            setTimeout(() => {
-                const particle = document.createElement('div');
-                particle.innerHTML = '💔';
-                particle.className = 'dislike-particle';
-                particle.style.position = 'fixed';
-                particle.style.left = centerX + (Math.random() - 0.5) * 30 + 'px';
-                particle.style.top = centerY + 'px';
-                particle.style.zIndex = '1000';
-                particle.style.color = 'var(--foreground-color)';
-                particle.style.fontSize = '12px';
-                particle.style.pointerEvents = 'none';
-                particle.style.opacity = '0.7';
-                particle.style.animation = 'fadeDown 1s ease-out forwards';
-                
-                document.body.appendChild(particle);
-                
+                // Reset animation lock
                 setTimeout(() => {
-                    if (particle.parentNode) {
-                        particle.remove();
-                    }
-                }, 1000);
-            }, i * 100);
-        }
-    }
-
-
-
-    // Enhanced hover effects
-    likeButton.addEventListener('mouseenter', function() {
-        if (!isLiked && !isAnimating) {
-            this.style.transform = 'scale(1.08) rotate(-3deg)';
-            this.style.filter = 'brightness(1.1)';
-            
-            // Subtle preview sparkles on hover
-            createPreviewSparkles();
-        } else if (isLiked) {
-            this.style.transform = 'scale(1.05)';
-            this.style.filter = 'brightness(1.2)';
-        }
-    });
-
-    likeButton.addEventListener('mouseleave', function() {
-        this.style.transform = 'scale(1) rotate(0deg)';
-        this.style.filter = 'brightness(1)';
-    });
-
-    function createPreviewSparkles() {
-        const rect = likeButton.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-
-        // Subtle preview sparkles
-        for (let i = 0; i < 5; i++) {
-            setTimeout(() => {
-                const sparkle = document.createElement('div');
-                sparkle.innerHTML = '✨';
-                sparkle.style.position = 'fixed';
-                sparkle.style.left = centerX + (Math.random() - 0.5) * 50 + 'px';
-                sparkle.style.top = centerY + (Math.random() - 0.5) * 50 + 'px';
-                sparkle.style.zIndex = '998';
-                sparkle.style.color = 'var(--foreground-color)';
-                sparkle.style.fontSize = '8px';
-                sparkle.style.pointerEvents = 'none';
-                sparkle.style.opacity = '0.6';
-                sparkle.style.animation = 'previewSparkle 0.8s ease-out forwards';
-                
-                document.body.appendChild(sparkle);
-                
-                setTimeout(() => {
-                    if (sparkle.parentNode) {
-                        sparkle.remove();
-                    }
+                    isAnimating = false;
                 }, 800);
-            }, i * 150);
-        }
-    }
+            });
 
-    // Add dynamic CSS animations
-    const style = document.createElement('style');
-    style.textContent = `
+            function createFloatingHearts(e) {
+                const rect = likeButton.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                // More variety in heart symbols
+                const heartSymbols = ['♡', '♥', '💖', '💕', '✨', '⭐', '💫'];
+
+                // Create more hearts with varied timing
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.innerHTML = heartSymbols[i % heartSymbols.length];
+                        heart.className = 'floating-heart';
+                        heart.style.position = 'fixed';
+                        heart.style.left = centerX + (Math.random() - 0.5) * 80 + 'px';
+                        heart.style.top = centerY + (Math.random() - 0.5) * 20 + 'px';
+                        heart.style.zIndex = '1000';
+                        heart.style.color = 'var(--foreground-color)';
+                        heart.style.fontSize = (16 + Math.random() * 8) + 'px';
+                        heart.style.pointerEvents = 'none';
+
+                        // Add random rotation
+                        heart.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+                        document.body.appendChild(heart);
+
+                        setTimeout(() => {
+                            if (heart.parentNode) {
+                                heart.remove();
+                            }
+                        }, 2500);
+                    }, i * 80);
+                }
+            }
+
+            function createSparkleEffect(e) {
+                const rect = likeButton.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                // Create sparkle particles
+                for (let i = 0; i < 7; i++) {
+                    setTimeout(() => {
+                        const sparkle = document.createElement('div');
+                        sparkle.innerHTML = '✨';
+                        sparkle.className = 'sparkle-particle';
+                        sparkle.style.position = 'fixed';
+                        sparkle.style.left = centerX + (Math.random() - 0.5) * 100 + 'px';
+                        sparkle.style.top = centerY + (Math.random() - 0.5) * 100 + 'px';
+                        sparkle.style.zIndex = '999';
+                        sparkle.style.color = 'var(--foreground-color)';
+                        sparkle.style.fontSize = (8 + Math.random() * 6) + 'px';
+                        sparkle.style.pointerEvents = 'none';
+                        sparkle.style.animation = 'sparkleFloat 1.5s ease-out forwards';
+
+                        document.body.appendChild(sparkle);
+
+                        setTimeout(() => {
+                            if (sparkle.parentNode) {
+                                sparkle.remove();
+                            }
+                        }, 1500);
+                    }, i * 50);
+                }
+            }
+
+            function createDislikeEffect(e) {
+                const rect = likeButton.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                // Subtle unlike effect
+                for (let i = 0; i < 6; i++) {
+                    setTimeout(() => {
+                        const particle = document.createElement('div');
+                        particle.innerHTML = '💔';
+                        particle.className = 'dislike-particle';
+                        particle.style.position = 'fixed';
+                        particle.style.left = centerX + (Math.random() - 0.5) * 30 + 'px';
+                        particle.style.top = centerY + 'px';
+                        particle.style.zIndex = '1000';
+                        particle.style.color = 'var(--foreground-color)';
+                        particle.style.fontSize = '12px';
+                        particle.style.pointerEvents = 'none';
+                        particle.style.opacity = '0.7';
+                        particle.style.animation = 'fadeDown 1s ease-out forwards';
+
+                        document.body.appendChild(particle);
+
+                        setTimeout(() => {
+                            if (particle.parentNode) {
+                                particle.remove();
+                            }
+                        }, 1000);
+                    }, i * 100);
+                }
+            }
+
+
+
+            // Enhanced hover effects
+            likeButton.addEventListener('mouseenter', function () {
+                if (!isLiked && !isAnimating) {
+                    this.style.transform = 'scale(1.08) rotate(-3deg)';
+                    this.style.filter = 'brightness(1.1)';
+
+                    // Subtle preview sparkles on hover
+                    createPreviewSparkles();
+                } else if (isLiked) {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.filter = 'brightness(1.2)';
+                }
+            });
+
+            likeButton.addEventListener('mouseleave', function () {
+                this.style.transform = 'scale(1) rotate(0deg)';
+                this.style.filter = 'brightness(1)';
+            });
+
+            function createPreviewSparkles() {
+                const rect = likeButton.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                // Subtle preview sparkles
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const sparkle = document.createElement('div');
+                        sparkle.innerHTML = '✨';
+                        sparkle.style.position = 'fixed';
+                        sparkle.style.left = centerX + (Math.random() - 0.5) * 50 + 'px';
+                        sparkle.style.top = centerY + (Math.random() - 0.5) * 50 + 'px';
+                        sparkle.style.zIndex = '998';
+                        sparkle.style.color = 'var(--foreground-color)';
+                        sparkle.style.fontSize = '8px';
+                        sparkle.style.pointerEvents = 'none';
+                        sparkle.style.opacity = '0.6';
+                        sparkle.style.animation = 'previewSparkle 0.8s ease-out forwards';
+
+                        document.body.appendChild(sparkle);
+
+                        setTimeout(() => {
+                            if (sparkle.parentNode) {
+                                sparkle.remove();
+                            }
+                        }, 800);
+                    }, i * 150);
+                }
+            }
+
+            // Add dynamic CSS animations
+            const style = document.createElement('style');
+            style.textContent = `
         @keyframes sparkleFloat {
             0% {
                 opacity: 1;
@@ -1735,18 +1744,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     `;
-    document.head.appendChild(style);
-});
-</script>
+            document.head.appendChild(style);
+        });
+    </script>
 
-    <script src="./p_assets/resume.js"></script>
-    <script src="./p_assets/stack-scroll.js"></script>
-    <script src="./p_assets/toggle.js"></script>
-
+    <script src="./assets/js/index/resume.js"></script>
+    <script src="./assets/js/index/stack-scroll.js"></script>
+    <script src="./assets/js/index/toggle.js"></script>
+    <script src="./assets/js/index/moon.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
-    <script src="./p_assets/moon.js"></script>
 
 
 </body>

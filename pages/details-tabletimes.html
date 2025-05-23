@@ -557,7 +557,6 @@
 
             .challenge-point,
             .process-step {
-                flex-direction: column;
                 gap: clamp(6px, 1.5vw, 8px);
                 margin-bottom: clamp(12px, 2.5vw, 16px);
             }
@@ -815,34 +814,40 @@
 </head>
 
 <body>
- <div class="main-container">
+<div class="main-container">
     <div class="close-button">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
         </svg>
     </div>
 
     <div class="project-container">
         <div class="section">
             <div class="project-title">
-                <h1>Nestclub</h1>
+                <h1>tabletimes</h1>
                 <p>Web App</p>
             </div>
 
             <div class="project-info-grid">
                 <div class="project-metadata">
                     <div class="metadata-item">
-                        <h3>ROLE</h3>
+                        <h3>COMPANY</h3>
+                        <p>Independent Project</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>MY ROLE</h3>
                         <p>Designer & Developer</p>
                     </div>
                     <div class="metadata-item">
                         <h3>TOOLS</h3>
-                        <p>HTML<br>CSS<br>JavaScript<br>Python Flask<br>MongoDB</p>
+                        <p>Flask<br>Python<br>HTML CSS JS</p>
                     </div>
                     <div class="metadata-item">
                         <h3>TIMELINE</h3>
-                        <p>2024</p>
+                        <p>2024 - 2025</p>
                     </div>
                 </div>
 
@@ -850,66 +855,136 @@
                     <div class="description-content">
                         <div class="description-section">
                             <h3>DESCRIPTION</h3>
-                            <p>Nestclub is a web platform that connects college students with nearby hostels, easing the stressful process of finding accommodation.</p>
+                            <p>A mobile-first web app that allows students to instantly access their live class schedule via QR code, with no login or app installation required.</p>
                         </div>
                         <div class="description-section">
                             <h3>CONTEXT</h3>
-                            <p>Inspired by my own difficult hostel search experience, I built Nestclub to centralize hostel listings, including photos, rent, and amenities, so students can explore options online before visiting in person.</p>
+                            <p>Students frequently struggle to access their schedules in real-time—often relying on screenshots or group chats. tabletimes removes that friction with a real-time, QR-powered interface tailored for classroom use. Once added to a student’s home screen, the schedule becomes just one tap away—offering instant access with native-app convenience.</p>
                         </div>
                     </div>
-                    <a href="#" class="cta-button">
-                        View Demo
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M12 5L19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <a href="https://tabletimes.vercel.app" class="cta-button" target="_blank">
+                        Launch tabletimes
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M12 5L19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
                         </svg>
                     </a>
                 </div>
             </div>
         </div>
 
+        <!-- Project Image -->
         <div class="section project-image-container">
-            <img src="https://placehold.co/600x400?text=Nestclub+UI" alt="Nestclub Interface" class="project-image">
+            <img src="https://placehold.co/600x400?text=Hello+1" alt=""
+                class="project-image">
         </div>
 
+        <!-- Challenge Section -->
         <div class="after-main-section">
             <div class="section challenge-section">
                 <h2>Challenge</h2>
                 <div class="challenge-content">
-                    <p>Finding a hostel near college is difficult and stressful. Students often visit multiple places physically, with limited options and no centralized database. Hostel owners, often older and tech-averse, made online coordination harder.</p>
-                </div>
-            </div>
-
-            <div class="section process-section">
-                <h2>Process</h2>
-                <div class="process-content">
-                    <p>I gathered data manually by visiting hostels, then listed verified options on a clean, scrollable interface. Initially, I built a dashboard for hostel owners, but due to low adoption, I switched to using WhatsApp/SMS for coordination.</p>
-                    <div class="process-steps">
-                        <div class="process-step"><div class="step-number">1.</div><div class="step-text">Field research: visited hostels, collected data manually</div></div>
-                        <div class="process-step"><div class="step-number">2.</div><div class="step-text">Built MVP with Flask backend and MongoDB</div></div>
-                        <div class="process-step"><div class="step-number">3.</div><div class="step-text">Designed modern front-end for students to browse listings</div></div>
-                        <div class="process-step"><div class="step-number">4.</div><div class="step-text">Pivoted from owner dashboard to WhatsApp communication</div></div>
+                    <p>How might we enable students to instantly check their current class without relying on cluttered apps, manual screenshots, or peer messages?</p>
+                    <div class="challenge-points">
+                        <div class="challenge-point">
+                            <div class="point-number">1.</div>
+                            <div class="point-text">Ensure instant schedule visibility with minimal user effort.</div>
+                        </div>
+                        <div class="challenge-point">
+                            <div class="point-number">2.</div>
+                            <div class="point-text">Eliminate friction points like login, onboarding, or downloads.</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="section solution-section">
-                <h2>Solution</h2>
-                <div class="solution-content">
-                    <p>Nestclub offers a clean, modern UI for students to explore hostels based on amenities, rent, and distance. Originally, inquiries were routed through me to preserve commission tracking. Later, I opened it up by listing direct phone numbers for ease of use.</p>
+            <!-- Process Section -->
+            <div class="section process-section">
+                <h2>Process</h2>
+                <div class="process-content">
+                    <p>The idea began with a question—what if scanning a QR could reveal your class? Our approach followed an agile, student-driven methodology focused on rapid validation and simplicity.</p>
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">1.</div>
+                            <div class="step-text">User discovery via student interviews</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2.</div>
+                            <div class="step-text">Wireframing minimal UX flows</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3.</div>
+                            <div class="step-text">Prototype with QR scanning and time logic</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4.</div>
+                            <div class="step-text">Test deployments in real classroom environments</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">5.</div>
+                            <div class="step-text">Launch and iterate based on feedback</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
+            <!-- Solution Section -->
+            <div class="section solution-section">
+                <h2>Solution</h2>
+                <div class="solution-content">
+                    <p>tabletimes is a lightweight web app that displays the current class by simply scanning a static QR code. It requires no login, installs in seconds, and blends effortlessly into campus life.</p>
+                    <p style="margin-top: 16px;">A built-in attendance calculator, originally added to support academic planning, quickly proved invaluable for students. <a href="https://tabletimes.vercel.app/calculator" target="_blank" style="text-decoration: underline;">Try the calculator</a>.</p>
+
+                    <!-- Solution Images Gallery -->
+                        <!-- Replace your existing images-gallery div with this: -->
+                        <div class="images-gallery-container">
+                            <div class="images-gallery-slide">
+                                <img src=" "
+                                    alt="Job Portal Solution 1" class="gallery-image" id="gallery-slide">
+                            </div>
+
+                            <div class="gallery-nav-arrow prev">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+
+                            <div class="gallery-nav-arrow next">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+
+                            <div class="gallery-navigation">
+                                <div class="gallery-nav-dot active" data-index="0"></div>
+                                <div class="gallery-nav-dot" data-index="1"></div>
+                                <div class="gallery-nav-dot" data-index="2"></div>
+                                <div class="gallery-nav-dot" data-index="3"></div>
+                            </div>
+                        </div>
+                
+                </div>
+            </div>
+
+            <!-- Takeaway Section -->
             <div class="section takeaway-section">
                 <h2>Takeaway & Reflection</h2>
                 <div class="takeaway-content">
-                    <p>Building Nestclub taught me full-stack development, real-world user empathy, and the challenge of deploying tech where users aren't tech-savvy. I pivoted and adapted often, learning that solutions must work for the audience, not just in theory.</p>
-                    <p style="margin-top: 16px;">Nestclub was sunset after its educational purpose was fulfilled, but the lessons it taught me remain foundational to my growth as a builder and designer.</p>
+                    <p>tabletimes demonstrates how thoughtful UX and contextual problem-solving can streamline daily routines. By focusing on just one task—knowing your current class—we delivered a solution that is both delightful and practical.</p>
+                    <p style="margin-top: 16px;">This project reinforced the power of low-friction, hyper-focused tools in improving everyday academic life.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
     <script src="../assets/js/details/main.js"></script>
     <script>

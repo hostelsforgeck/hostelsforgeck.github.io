@@ -1033,7 +1033,7 @@
 
     <script src="../assets/js/details/main.js"></script>
     <script>
-        // Gallery Slider Implementation
+        // Optimized Gallery Slider Implementation
         document.addEventListener('DOMContentLoaded', () => {
             const gallerySlide = document.getElementById('gallery-slide');
             const prevArrow = document.querySelector('.gallery-nav-arrow.prev');
@@ -1050,13 +1050,32 @@
                 "../assets/img/project-3/6.PNG",
                 "../assets/img/project-3/7.PNG",
                 "../assets/img/project-3/9.png",
-
             ];
 
+            let currentGalleryIndex = 0;
+            let preloadedImages = [];
+            let isTransitioning = false;
+
+            // Preload all images for instant switching
+            function preloadImages() {
+                galleryUrls.forEach((url, index) => {
+                    const img = new Image();
+                    img.src = url;
+                    img.onload = () => {
+                        console.log(`Image ${index + 1} preloaded successfully`);
+                    };
+                    img.onerror = () => {
+                        console.warn(`Failed to preload image ${index + 1}: ${url}`);
+                    };
+                    preloadedImages[index] = img;
+                });
+            }
 
             // Auto-generate navigation dots based on gallery length
             function generateNavigationDots() {
                 const galleryNavigation = document.getElementById('gallery-navigation');
+                if (!galleryNavigation) return;
+                
                 galleryNavigation.innerHTML = ''; // Clear existing dots
 
                 galleryUrls.forEach((_, index) => {
@@ -1068,84 +1087,139 @@
                 });
             }
 
-            // Call the function to generate dots
-            generateNavigationDots();
+            // Initialize gallery
+            function initializeGallery() {
+                generateNavigationDots();
+                preloadImages();
+                
+                // Set initial image
+                if (gallerySlide && galleryUrls.length > 0) {
+                    gallerySlide.src = galleryUrls[0];
+                    gallerySlide.alt = `Job Portal Solution 1`;
+                }
+            }
 
-            // Update the galleryDots selector after generation
-            const galleryDots = document.querySelectorAll('.gallery-navigation .gallery-nav-dot');
-
-            let currentGalleryIndex = 0;
-
-            // Function to update the gallery display
+            // Fast update function - no fade delay
             function updateGallerySlide(index) {
-                // Update the image source with fade effect
-                gallerySlide.style.opacity = 0;
-
-                setTimeout(() => {
+                if (isTransitioning || index === currentGalleryIndex) return;
+                
+                isTransitioning = true;
+                
+                // Quick opacity transition for smooth effect
+                gallerySlide.style.opacity = '0.7';
+                
+                // Use requestAnimationFrame for smooth transition
+                requestAnimationFrame(() => {
                     gallerySlide.src = galleryUrls[index];
                     gallerySlide.alt = `Job Portal Solution ${index + 1}`;
-                    gallerySlide.style.opacity = 1;
-                }, 300);
+                    gallerySlide.style.opacity = '1';
+                    
+                    // Update active dot
+                    updateActiveDot(index);
+                    currentGalleryIndex = index;
+                    
+                    // Reset transition flag after a short delay
+                    setTimeout(() => {
+                        isTransitioning = false;
+                    }, 100);
+                });
+            }
 
-                // Update the active dot
+            // Separate function to update dots for better performance
+            function updateActiveDot(activeIndex) {
+                const galleryDots = document.querySelectorAll('.gallery-navigation .gallery-nav-dot');
                 galleryDots.forEach((dot, i) => {
-                    if (i === index) {
-                        dot.classList.add('active');
-                    } else {
-                        dot.classList.remove('active');
+                    dot.classList.toggle('active', i === activeIndex);
+                });
+            }
+
+            // Set up event listeners after initialization
+            function setupEventListeners() {
+                const galleryDots = document.querySelectorAll('.gallery-navigation .gallery-nav-dot');
+
+                // Dot click events
+                galleryDots.forEach((dot, index) => {
+                    dot.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        updateGallerySlide(index);
+                    });
+                });
+
+                // Arrow click events
+                if (prevArrow) {
+                    prevArrow.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const newIndex = currentGalleryIndex === 0 ? galleryUrls.length - 1 : currentGalleryIndex - 1;
+                        updateGallerySlide(newIndex);
+                    });
+                }
+
+                if (nextArrow) {
+                    nextArrow.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const newIndex = currentGalleryIndex === galleryUrls.length - 1 ? 0 : currentGalleryIndex + 1;
+                        updateGallerySlide(newIndex);
+                    });
+                }
+
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        const newIndex = currentGalleryIndex === 0 ? galleryUrls.length - 1 : currentGalleryIndex - 1;
+                        updateGallerySlide(newIndex);
+                    } else if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        const newIndex = currentGalleryIndex === galleryUrls.length - 1 ? 0 : currentGalleryIndex + 1;
+                        updateGallerySlide(newIndex);
                     }
                 });
-
-                // Update current index
-                currentGalleryIndex = index;
             }
 
-            // Set up click events for the dots
-            galleryDots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    updateGallerySlide(index);
-                });
-            });
+            // Auto-rotate functionality
+            let autoRotateInterval;
 
-            // Set up click events for arrows
-            if (prevArrow) {
-                prevArrow.addEventListener('click', () => {
-                    const newIndex = currentGalleryIndex === 0 ? galleryUrls.length - 1 : currentGalleryIndex - 1;
-                    updateGallerySlide(newIndex);
-                });
-            }
-
-            if (nextArrow) {
-                nextArrow.addEventListener('click', () => {
-                    const newIndex = currentGalleryIndex === galleryUrls.length - 1 ? 0 : currentGalleryIndex + 1;
-                    updateGallerySlide(newIndex);
-                });
-            }
-
-            // Initialize with the first image
-            updateGallerySlide(0);
-
-            // Optional: Auto-rotate images every 6 seconds
-            let autoRotateInterval = setInterval(() => {
-                const newIndex = (currentGalleryIndex + 1) % galleryUrls.length;
-                updateGallerySlide(newIndex);
-            }, 6000);
-
-            // Stop auto-rotate when user interacts with the slider
-            const galleryContainer = document.querySelector('.images-gallery-container');
-            if (galleryContainer) {
-                galleryContainer.addEventListener('mouseenter', () => {
-                    clearInterval(autoRotateInterval);
-                });
-
-                // Resume auto-rotate when user leaves the slider
-                galleryContainer.addEventListener('mouseleave', () => {
-                    autoRotateInterval = setInterval(() => {
+            function startAutoRotate() {
+                autoRotateInterval = setInterval(() => {
+                    if (!isTransitioning) {
                         const newIndex = (currentGalleryIndex + 1) % galleryUrls.length;
                         updateGallerySlide(newIndex);
-                    }, 6000);
-                });
+                    }
+                }, 5000); // Reduced to 5 seconds for better user experience
             }
+
+            function stopAutoRotate() {
+                if (autoRotateInterval) {
+                    clearInterval(autoRotateInterval);
+                    autoRotateInterval = null;
+                }
+            }
+
+            // Setup hover events for auto-rotate
+            function setupAutoRotate() {
+                const galleryContainer = document.querySelector('.images-gallery-container');
+                if (galleryContainer) {
+                    galleryContainer.addEventListener('mouseenter', stopAutoRotate);
+                    galleryContainer.addEventListener('mouseleave', startAutoRotate);
+                    
+                    // Start auto-rotate initially
+                    startAutoRotate();
+                }
+            }
+
+            // Initialize everything
+            initializeGallery();
+            
+            // Setup event listeners after a small delay to ensure DOM is ready
+            setTimeout(() => {
+                setupEventListeners();
+                setupAutoRotate();
+            }, 100);
+
+            // Cleanup on page unload
+            window.addEventListener('beforeunload', () => {
+                stopAutoRotate();
+            });
         });
     </script>
 

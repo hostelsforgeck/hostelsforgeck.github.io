@@ -827,31 +827,31 @@
         <div class="project-container">
             <div class="section">
                 <div class="project-title">
-                    <h1>Nestclub</h1>
+                    <h1>Quickprep.ai</h1>
                     <p >
                         <strong style="font-weight: 500;">Web App</strong> –
-                        <span style="color: #666; letter-spacing: 0.8px;">Connecting Hostel Owners with Students</span> 
+                        <span style="color: #666; letter-spacing: 0.8px;">AI in Education</span> 
                     </p>
                 </div>
 
                 <div class="project-info-grid">
                     <div class="project-metadata">
-
+                        
                         <div class="metadata-item">
                             <h3>COMPANY</h3>
-                            <p>Independent Project</p>
+                            <p>Team Project</p>
                         </div>
                         <div class="metadata-item">
-                            <h3>ROLE</h3>
-                            <p>Designer & Developer</p>
+                            <h3>MY ROLE</h3>
+                            <p>Team Lead</p>
                         </div>
                         <div class="metadata-item">
                             <h3>TOOLS</h3>
-                            <p>HTML<br>CSS<br>JavaScript<br>Python Flask<br>MongoDB</p>
+                            <p>Flask<br>Groq API<br>HTML CSS JS<br>LLama 3.3 70B</p>
                         </div>
                         <div class="metadata-item">
                             <h3>TIMELINE</h3>
-                            <p>2024</p>
+                            <p>2025</p>
                         </div>
                     </div>
 
@@ -859,18 +859,23 @@
                         <div class="description-content">
                             <div class="description-section">
                                 <h3>DESCRIPTION</h3>
-                                <p>Nestclub is a web platform that connects college students with nearby hostels, easing
-                                    the stressful process of finding accommodation.</p>
+                                <p>Quickprep.ai is an AI-powered web application designed to help teachers generate
+                                    quizzes and track student performance effortlessly. By analyzing uploaded module
+                                    notes, the platform uses large language models to generate multiple-choice questions
+                                    (MCQs), which students can answer online. Teachers can then monitor individual and
+                                    class-wide performance through a dynamic dashboard.</p>
                             </div>
                             <div class="description-section">
                                 <h3>CONTEXT</h3>
-                                <p>Inspired by my own difficult hostel search experience, I built Nestclub to centralize
-                                    hostel listings, including photos, rent, and amenities, so students can explore
-                                    options online before visiting in person.</p>
+                                <p>Creating high-quality MCQs and tracking student understanding can be time-consuming
+                                    for teachers. With Quickprep.ai, we aimed to remove these bottlenecks by using AI to
+                                    automate quiz generation while enabling a streamlined interface for students to test
+                                    themselves and track their progress. This made the learning loop faster, easier, and
+                                    more transparent for both students and teachers.</p>
                             </div>
                         </div>
-                        <a href="https://nestclub.vercel.app" class="cta-button" target="_blank">
-                            Launch Nestclub
+                        <a href="https://github.com/malik-l0l/Quickprep-ai" class="cta-button" target="_blank">
+                            View on GitHub
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round"
@@ -883,62 +888,108 @@
                 </div>
             </div>
 
+            <!-- Project Image -->
             <div class="section project-image-container">
-                <img src="https://placehold.co/600x400?text=Nestclub+UI" alt="Nestclub Interface" class="project-image">
+                <img src="../assets/img/project-3/1.PNG" alt="Quickprep.ai interface" class="project-image">
             </div>
 
+            <!-- Challenge Section -->
             <div class="after-main-section">
                 <div class="section challenge-section">
                     <h2>Challenge</h2>
                     <div class="challenge-content">
-                        <p>Finding a hostel near college is difficult and stressful. Students often visit multiple
-                            places physically, with limited options and no centralized database.</p>
-                    </div>
-                </div>
-
-                <div class="section process-section">
-                    <h2>Process</h2>
-                    <div class="process-content">
-                        <p>I gathered data manually by visiting hostels, then listed verified options on a clean,
-                            scrollable interface. Initially, I built a dashboard for hostel owners, but due to low
-                            adoption, I switched to using WhatsApp/SMS for coordination.</p>
-                        <div class="process-steps">
-                            <div class="process-step">
-                                <div class="step-number">1.</div>
-                                <div class="step-text">Field research: visited hostels, collected data manually</div>
+                        <p>How might we enable teachers to generate quizzes from existing teaching materials, while also
+                            giving them detailed insights into individual student progress—all with minimal manual work?
+                        </p>
+                        <div class="challenge-points">
+                            <div class="challenge-point">
+                                <div class="point-number">1.</div>
+                                <div class="point-text">Generate well-structured, valid MCQs from raw module notes using
+                                    LLMs.</div>
                             </div>
-                            <div class="process-step">
-                                <div class="step-number">2.</div>
-                                <div class="step-text">Built MVP with Flask backend and MongoDB</div>
+                            <div class="challenge-point">
+                                <div class="point-number">2.</div>
+                                <div class="point-text">Ensure the output adheres to strict JSON schema, despite LLM
+                                    unpredictability.</div>
                             </div>
-                            <div class="process-step">
-                                <div class="step-number">3.</div>
-                                <div class="step-text">Designed modern front-end for students to browse listings</div>
-                            </div>
-                            <div class="process-step">
-                                <div class="step-number">4.</div>
-                                <div class="step-text">Pivoted from owner dashboard to WhatsApp communication</div>
+                            <div class="challenge-point">
+                                <div class="point-number">3.</div>
+                                <div class="point-text">Allow students to view quizzes, attempt them, and track
+                                    performance by difficulty level.</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Process Section -->
+                <div class="section process-section">
+                    <h2>Process</h2>
+                    <div class="process-content">
+                        <p>The project started with conversations with educators about the pain of creating new
+                            assessments. I explored how LLMs could transform this process. We experimented with several
+                            local and open-source models before settling on a cloud-hosted LLaMA 3.3 model via Groq for
+                            its performance and ease of integration. Based on early feedback from both students and
+                            teachers, we continuously refined the UI and quiz validation logic.</p>
+                        <div class="process-steps">
+                            <div class="process-step">
+                                <div class="step-number">1.</div>
+                                <div class="step-text">Gathered feedback from teachers and students on quiz challenges.
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-number">2.</div>
+                                <div class="step-text">Built PDF-to-MCQ conversion flow with JSON schema enforcement.
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-number">3.</div>
+                                <div class="step-text">Implemented two user roles with clean, functional dashboards.
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-number">4.</div>
+                                <div class="step-text">Iterated interface and difficulty tagging system based on
+                                    classroom usage.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solution Section -->
                 <div class="section solution-section">
                     <h2>Solution</h2>
                     <div class="solution-content">
-                        <p>Nestclub offers a clean, modern UI for students to explore hostels based on amenities, rent,
-                            and distance. Originally, inquiries were routed through me to preserve commission tracking.
-                            Later, I opened it up by listing direct phone numbers for ease of use.</p>
+                        <p>Quickprep.ai offers two distinct interfaces: one for teachers and one for students.</p>
 
 
 
-                        <!-- Solution Images Gallery -->
-                        <!-- Replace your existing images-gallery div with this: -->
-                        <div class="images-gallery-container">
-                            <div class="images-gallery-slide">
-                                <img src=" " alt="Job Portal Solution 1" class="gallery-image" id="gallery-slide">
+                        <div class="challenge-points">
+                            <div class="challenge-point">
+                                <div class="point-number">1.</div>
+                                <div class="point-text"><strong>Teachers</strong> can upload module notes, generate MCQs
+                                    via AI, review or edit them, and track individual student performance through a
+                                    detailed dashboard.</div>
+
+                            </div>
+                            <div class="challenge-point">
+                                <div class="point-number">2.</div>
+                                <div class="point-text"><strong>Students</strong> can sign up, take quizzes, and receive
+                                    real-time feedback. Each question is tagged with a difficulty label (easy, medium,
+                                    hard), and students can reattempt quizzes with average score tracking.</div>
+
                             </div>
 
+                        </div>
+
+
+                        <p style="margin-top: 16px;">The AI-generated questions follow a strict JSON schema, validated
+                            through a custom script. Teachers are not required to craft questions from scratch—just
+                            review and tweak.</p>
+                        <div class="images-gallery-container">
+                            <div class="images-gallery-slide">
+                                <img src="https://placehold.co/600x400?text=Quickprep+Dashboard" alt="Dashboard UI"
+                                    class="gallery-image" id="gallery-slide">
+                            </div>
                             <div class="gallery-nav-arrow prev">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -946,7 +997,6 @@
                                         stroke-linejoin="round" />
                                 </svg>
                             </div>
-
                             <div class="gallery-nav-arrow next">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -954,33 +1004,30 @@
                                         stroke-linejoin="round" />
                                 </svg>
                             </div>
-
                             <div class="gallery-navigation" id="gallery-navigation">
                                 <!-- Dots will be generated automatically -->
                             </div>
                         </div>
-
-
-
-
-
-
                     </div>
                 </div>
 
+                <!-- Takeaway Section -->
                 <div class="section takeaway-section">
                     <h2>Takeaway & Reflection</h2>
                     <div class="takeaway-content">
-                        <p>Building Nestclub taught me full-stack development, real-world user empathy, and the
-                            challenge of deploying tech where users aren't tech-savvy. I pivoted and adapted often,
-                            learning that solutions must work for the audience, not just in theory.</p>
-                        <p style="margin-top: 16px;">Nestclub was sunset after its educational purpose was fulfilled,
-                            but the lessons it taught me remain foundational to my growth as a builder and designer.</p>
+                        <p>This project deepened my understanding of LLM integrations and their practical constraints in
+                            educational tools. It also reinforced how thoughtfully applied AI can relieve educators from
+                            repetitive tasks, giving them more time to focus on pedagogy.</p>
+                        <p style="margin-top: 16px;">From a product perspective, it taught me how even simple UIs—when
+                            tuned to user feedback—can powerfully serve both ends of a system: teachers and students.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 
     <script src="../assets/js/details/main.js"></script>
     <script>
@@ -992,11 +1039,18 @@
 
             // Gallery image URLs - add more images here
             const galleryUrls = [
-                "https://placehold.co/600x400?text=Hello+1",
-                "https://placehold.co/600x400?text=Hello+2",
-                "https://placehold.co/600x400?text=Hello+3",
-                "https://placehold.co/600x400?text=Hello+4"
+                "../assets/img/project-3/1.PNG",
+                "../assets/img/project-3/8.PNG",
+                "../assets/img/project-3/2.PNG",
+                "../assets/img/project-3/3.PNG",
+                "../assets/img/project-3/4.PNG",
+                "../assets/img/project-3/5.PNG",
+                "../assets/img/project-3/6.PNG",
+                "../assets/img/project-3/7.PNG",
+                "../assets/img/project-3/9.PNG",
+
             ];
+
 
             // Auto-generate navigation dots based on gallery length
             function generateNavigationDots() {
@@ -1017,9 +1071,6 @@
 
             // Update the galleryDots selector after generation
             const galleryDots = document.querySelectorAll('.gallery-navigation .gallery-nav-dot');
-
-
-
 
             let currentGalleryIndex = 0;
 

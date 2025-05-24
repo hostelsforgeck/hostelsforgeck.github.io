@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     resetTimer = setTimeout(resetButton, resetTimeout);
 
                     // Optional: open resume in new tab
-                    window.open('https://drive.google.com/your-resume-link', '_blank');
+                    window.open('https://drive.google.com/file/d/1rXlakVSEKl19OpJpsYwpVwbRwCwhawBX/view?usp=drive_link', '_blank');
                 }, 200);
             });
 

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const icons = [
 
                 // env
-                { src: '../assets/img/stack_img/vscode.png', alt: 'vscode' },
+                { src: '../assets/img/stack_img/vscode.PNG', alt: 'vscode' },
                 { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pycharm/pycharm-original.svg', alt: 'pycharm' },
 
                 // backend
